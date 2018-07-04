@@ -18,7 +18,7 @@ $("#calculateButton").click(function() {
     win = 0;
     lost = 0;
 
-    while (actualMoney < 50000 && sumCase < 500) {
+    while (actualMoney < 20000 && sumCase < 500) {
         sumCase++;
         actualMoney=5000;
 
@@ -29,7 +29,7 @@ $("#calculateButton").click(function() {
             minRound = round;
         }
         round = 0;
-        while (actualMoney > 0 && actualMoney < 50000) {
+        while (actualMoney > 0 && actualMoney < 20000) {
 
             //if(lostNumber == 0) {
                 myTip = (Math.floor((Math.random() * 100)));
