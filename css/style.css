@@ -1,0 +1,62 @@
+body {
+  background-color: grey;
+  color: white; 
+  font-size: 15px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.calculateButton .downloadButton {
+  margin-top: 10px; 
+  font-size: 20px;
+}
+
+.header {
+  text-align: center;
+}
+
+.main-statistic-block {
+  border: 1px solid white;
+}
+
+.calculateText {
+  margin-top: 30px;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.statistic-block > div {
+  display: inline-block;
+}
+
+.statistic-block {
+  display: inline-block;
+  margin: 10px 30px;
+  vertical-align: top;
+}
+.tactics-block > div {
+  display: inline-block;
+}
+
+.tactics-block {
+  display: inline-block;
+  margin: 10px 30px;
+  vertical-align: top;
+}
+
+.home {
+  color: green;
+}
+
+.draw{
+  color: yellow;
+}
+
+.away {
+  color: red;
+}

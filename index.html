@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Foci statisztikák</title>
+  <meta name="description" content="Foci statisztikák">
+  <meta name="author" content="noname">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <br>
+  <div class="header">
+    <h1>MÉRKŐZÉS STATISZKIKÁK</h1>
+  </div>
+  <br>
+  <hr>
+  <br><br>
+  <div class="main-statistic-block">
+    <div class="statistic-block">
+        <button id="calculateButton" class="calculateButton">Számolás!</button>
+        <br><br>
+        <button id="downloadButton" class="downloadButton">Letöltés!</button>
+    </div>
+    <div class="statistic-block">
+      <label>Kalkulált meccsek:</label>
+      <div id="sum">0</div><br>
+      <label>Hiba:</label>
+      <div id="bug">?</div>
+    </div>
+    <div class="statistic-block">
+        <label>Páros:</label> 
+        <div id="even">0</div><br>
+        <label>Páratlan:</label>
+        <div id="odd">0</div>
+    </div>
+    <div class="statistic-block">
+        <label>2.5 gól felett:</label>
+        <div id="over">0</div><br>
+        <label>2.5 gól alatt:</label> 
+        <div id="under">0</div>
+    </div>
+    <div class="statistic-block">
+        <label class="home">Hazai:</label>
+        <div id="home">0</div><br>
+        <label class="draw">Döntetlen:</label> 
+        <div id="draw">0</div><br>
+        <label class="away">Idegen:</label> 
+        <div id="away">0</div>
+    </div>
+</div>
+
+<div class="calculateText">
+  <textarea rows="40" cols="150" id="calculateText"> </textarea>
+</div>
+<br><br>
+<a class="color:white" href="tactics.html">Taktikai kalkulátor</a>
+<br><br>
+  <script src="js/scripts.js"></script>
+</body>
+</html>

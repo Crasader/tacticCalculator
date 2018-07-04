@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Foci statisztikák</title>
+  <meta name="description" content="Foci statisztikák">
+  <meta name="author" content="noname">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <br>
+  <div class="header">
+    <h1>Taktikai kalkulátor</h1>
+  </div>
+  <br>
+  <hr>
+  <br><br>
+  <div class="main-statistic-block">
+    <div class="statistic-block">
+        <button id="calculateButton" class="calculateButton">Számolás!</button>
+    </div>
+    <div class="tactics-block">
+      <label>Kör:</label>
+      <div id="round">0</div><br>
+      <label>Összes kör:</label> 
+      <div id="sumRound">?</div><br>
+    </div>
+    <div class="tactics-block">
+      <label>Aktuális pénz:</label> 
+      <div id="actualMoney">0</div><br>
+      <label>Induló összeg:</label>
+      <div id="startMoney">5000</div>
+    </div>
+    <div class="tactics-block">
+      <label>Max összeg:</label> 
+      <div id="maxMoney">?</div><br>
+    </div>
+    <div class="tactics-block">
+      <label>Win:</label> 
+      <div id="win">0</div><br>
+      <label>Lost:</label> 
+      <div id="lost">0</div><br>
+    </div>
+    <div class="tactics-block">
+      <label>Min kör:</label> 
+      <div id="minRound">?</div><br>
+      <label>Max kör:</label> 
+      <div id="maxRound">?</div><br>
+    </div>
+</div>
+
+<div class="calculateText">
+  <textarea rows="40" cols="150" id="calculateText"> </textarea>
+</div>
+  <script src="js/tacticsScript.js"></script>
+</body>
+</html>
