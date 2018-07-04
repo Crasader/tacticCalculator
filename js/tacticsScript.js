@@ -5,10 +5,10 @@ $("#calculateButton").click(function() {
 
     maxMoney = actualMoney;
 
-    //bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71];
-    //bets = [50, 110, 242, 472, 911, 1750];
-    //bets = [100, 220, 484, 944, 1822, 3600];
-    bets = [200, 440, 940, 1800, 3600];
+    bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
+    //bets = [50, 110, 242, 472, 911, 1725, 3240, 6040, 13000];
+    //bets = [100, 220, 484, 944, 1822, 3600, 7400];
+    //bets = [200, 440, 940, 1800, 3600];
     odd = 1.83;
 
     sumCase = 0;
@@ -31,9 +31,9 @@ $("#calculateButton").click(function() {
         round = 0;
         while (actualMoney > 0 && actualMoney < 50000) {
 
-            if(lostNumber == 0) {
+            //if(lostNumber == 0) {
                 myTip = (Math.floor((Math.random() * 100)));
-            }
+            //}
             result = (Math.floor((Math.random() * 100)));
 
             if (myTip%2 == result%2) {
@@ -44,7 +44,7 @@ $("#calculateButton").click(function() {
             } else {
                 actualMoney = Math.round(actualMoney - bets[lostNumber]);
                 grow = - bets[lostNumber];
-                if(lostNumber<4) {
+                if(lostNumber<7) {
                     lostNumber++;
                 }
                 lost++;
@@ -67,6 +67,8 @@ $("#calculateButton").click(function() {
 
         $("div#maxRound").html(maxRound);
         $("div#minRound").html(minRound);
+
+        $("div#sumRound").html(lost+win);
     }    
   });
 
