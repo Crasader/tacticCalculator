@@ -12,6 +12,8 @@ $("#calculateButton").click(function() {
     draw = 0; 
     away = 0;
     bug = 0;
+
+    exactResults = [];
     regEx = /([0-9]+)/g;
     $.each( footballResultsContainers, function( i, el ) {
         text = el.innerText;
@@ -39,11 +41,24 @@ $("#calculateButton").click(function() {
             } else {
                 bug--;
             }
+
+            if ( isNaN(exactResults["r"+number[0]+number[1]]) ) {
+                exactResults["r"+number[0]+number[1]] = 1;
+            } else {
+                exactResults["r"+number[0]+number[1]] += 1;   
+            }
         } else {
             bug--;
         }
+
         //results[ i ] = goals + " -- " + number[0] + 'aa' + number[1];
     });
+
+    console.log(exactResults);
+    for (var key in exactResults) {
+        $("div#"+key).html(exactResults[key]);
+      } 
+
 
     $("div#even").html(even);
     $("div#odd").html(odd);

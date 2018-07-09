@@ -5,11 +5,12 @@ $("#calculateButton").click(function() {
 
     maxMoney = actualMoney;
 
-    bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
-    //bets = [50, 110, 242, 472, 911, 1725, 3240, 6040, 13000];
+    //bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
+    bets = [50, 110, 242, 472, 911, 1725, 3240, 6040, 13000, 26000];
     //bets = [100, 220, 484, 944, 1822, 3600, 7400];
     //bets = [200, 440, 940, 1800, 3600];
-    odd = 1.83;
+    //bets = [50, 100, 350, 750, 1500, 3000, 6000, 12000];
+    odd = 1.9;
 
     sumCase = 0;
     lostNumber = 0;
@@ -44,11 +45,15 @@ $("#calculateButton").click(function() {
             } else {
                 actualMoney = Math.round(actualMoney - bets[lostNumber]);
                 grow = - bets[lostNumber];
-                if(lostNumber<7) {
+                if(lostNumber<9) {
                     lostNumber++;
                 }
                 lost++;
             }
+
+            //if(lostNumber == 8) {
+            //    lostNumber = 0;
+           // }
 
             if (actualMoney > maxMoney) {
                 maxMoney = actualMoney;
