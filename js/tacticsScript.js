@@ -6,9 +6,10 @@ $("#calculateButton").click(function() {
     var maxMoney = [];
 
     //bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
-    bets = [50, 110, 242, 472, 911, 1717, 3216, 5991, 11142];
+    //bets = [50, 110, 242, 472, 911, 1717, 3216, 5991, 11142];
     //bets = [100, 220, 484, 944, 1822, 3424, 6404, 11911];
-    //bets = [200, 440, 940, 1800, 3600, ];
+    //bets = [200, 440, 940, 1800, 3600, 7800];
+    bets = [400, 880, 1880, 3660, 6320, 12000];
     //bets = [50, 100, 350, 750, 1500, 3000, 6000, 12000];
     odd = 1.83;
 
@@ -21,7 +22,7 @@ $("#calculateButton").click(function() {
 
     winRound = 0;
     lostRound = 0;
-    finishMoney = 40000;
+    finishMoney = actualMoney*4;
 
     while (sumCase < 10000) {
         console.log(sumCase + ": " +actualMoney);
@@ -35,7 +36,7 @@ $("#calculateButton").click(function() {
                 lostRound++;
             }
         }
-        actualMoney = $("#startMoney").html() * 1;;
+        actualMoney = $("#startMoney").html() * 1;
 
         if(maxRound < round) {
             maxRound = round;
@@ -60,15 +61,15 @@ $("#calculateButton").click(function() {
             } else {
                 actualMoney = Math.round(actualMoney - bets[lostNumber]);
                 grow = - bets[lostNumber];
-                if(lostNumber<9) {
+                if(lostNumber<bets.length-1) {
                     lostNumber++;
                 }
                 lost++;
             }
 
-            //if(lostNumber == 8) {
-            //    lostNumber = 0;
-           // }
+            //if(lostNumber == bets.length) {
+                //lostNumber = 0;
+            //}
 
            // if (actualMoney > maxMoney) {
            //     maxMoney = actualMoney;
