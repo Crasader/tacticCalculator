@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -v $(pwd):/project fivenet/php-code-analysis phpcs --standard=./ruleset.xml --extensions=php app tests

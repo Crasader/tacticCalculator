@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./shell.sh php -dxdebug.remote_autostart=On -dxdebug.remote_enable=On -dxdebug.remote_host=$(cat ./PHP-XDEBUG-IP) $@
+

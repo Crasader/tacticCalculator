@@ -8,8 +8,8 @@ $("#calculateButton").click(function() {
 
     //hanyados = [100, 45.45, 20.66, 9.39, 4.27, 1.94, 0.88];
     
-    //hanyados = [50, 22.7, 10.33, 4.7, 2.13, 1, 0.44]; // legjobb arány 50%os bejövési arány
-    hanyados = [25.01, 10, 4.17, 1.6, 0.62, 0.28, 0.13];
+    hanyados = [50, 22.7, 10.33, 4.7, 2.13, 1, 0.44]; // legjobb arány 50%os bejövési arány
+    //hanyados = [25.01, 10, 4.17, 1.6, 0.62, 0.28, 0.13];
     //bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
 
     //bets = [50, 110, 242, 472, 911, 1717, 3216, 5991, 11142];
@@ -59,9 +59,9 @@ $("#calculateButton").click(function() {
         while (actualMoney > 0 && actualMoney < finishMoney) {
 
             //if(lostNumber == 0) {
-            //    myTip = (Math.floor((Math.random() * 100)));
-           // }
-            myTip=0;
+                myTip = (Math.floor((Math.random() * 100)));
+            //}
+            //myTip=0;
             result = (Math.floor((Math.random() * 100)));
 
             if (myTip%2 == result%2) {

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose exec proxy tail -f /var/log/tinyproxy/tinyproxy.log

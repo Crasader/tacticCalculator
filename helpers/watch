@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose run --rm --service-ports --user $(ls -lnd . | awk '{print $3}') node npm run dev

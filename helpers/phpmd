@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -v $(pwd):/project fivenet/php-code-analysis phpmd app,tests text phpmd-ruleset.xml --suffixes='php'
