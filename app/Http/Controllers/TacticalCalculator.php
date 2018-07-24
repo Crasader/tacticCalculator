@@ -118,12 +118,6 @@ class TacticalCalculator extends Controller
             //$("div#lostRound").html(lostRound);
             //$("div#winRound").html(winRound);
 
-        //esetek:
-        // - kis tét duplázás végig nyeremény,
-        // - kis tét duplázás nincs nyeremény csak 1. 2.,
-        // - nagy tét duplázás nincs nyeremény,
-        // - nagy tét duplázás végig nyeremény,
-
         $endTime = $this->milliseconds();
         return view('tactic', ['data' => [
             'lostRound' => $lostRound,

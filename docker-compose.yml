@@ -12,6 +12,7 @@ services:
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=database"
+    container_name: tactic_app
 
   # The Web Server
   web:
@@ -23,6 +24,7 @@ services:
       - app
     ports:
       - 8081:80
+    container_name: tactic_web_nginx
 
   # The Database
   database:
@@ -36,6 +38,7 @@ services:
       MYSQL_PASSWORD: laravel
     ports:
         - "33061:3306"
+    container_name: tactic_db_mysql
 
 volumes:
   dbdata:
