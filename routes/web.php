@@ -15,4 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tactic', 'TacticalCalculator@index')->name('tactic');
+Route::get('/tactic', 'TacticalCalculatorController@index')->name('tactic');
+//Route::get('/statistic', 'StatisticController@index')->name('statistic')->middleware('cors');
+
+Route::group(['middleware' => 'cors', 'frameheader'], function () {
+    Route::get('/statistic', 'StatisticController@index')->name('statistic');
+});

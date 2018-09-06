@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TacticalCalculator extends Controller
+class TacticalCalculatorController extends Controller
 {
     public function index(Request $request) {
 

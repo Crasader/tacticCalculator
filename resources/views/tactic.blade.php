@@ -8,7 +8,7 @@
         <title>Laravel</title>
     </head>
     <body>
-        Hello
+
     asdasd
     {{ print_r($data) }}
     </body>
