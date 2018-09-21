@@ -1,44 +1,28 @@
-version: '2'
+version: "2.0"
+
 services:
-
-  # The Application
-  app:
-    build:
-      context: ./
-      dockerfile: app.dockerfile
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-    environment:
-      - "DB_PORT=3306"
-      - "DB_HOST=database"
-    container_name: tactic_app
-
-  # The Web Server
   web:
-    build:
-      context: ./
-      dockerfile: web.dockerfile
-    working_dir: /var/www
-    volumes_from:
-      - app
-    ports:
-      - 8081:80
-    container_name: tactic_web_nginx
-
-  # The Database
-  database:
-    image: mysql:5.7
+    build: _docker/web
     volumes:
-      - dbdata:/var/lib/mysql
+      - ".:/project"
+    working_dir: "/project"
+    environment:
+      TMPDIR: /project/rw/app/temporary
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: laravel
+  mysql:
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: laravel
       MYSQL_DATABASE: laravel
       MYSQL_USER: laravel
       MYSQL_PASSWORD: laravel
-    ports:
-        - "33061:3306"
-    container_name: tactic_db_mysql
-
-volumes:
-  dbdata:
+  node:
+    build: _docker/node
+    command: "npm"
+    volumes:
+      - ".:/project"
+    working_dir: "/project"
+    environment:
+      HOME: /tmp/node
