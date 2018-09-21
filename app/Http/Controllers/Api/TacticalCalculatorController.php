@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\BaseResourceController;
+use App\Repositories\BaseRepository;
+use App\Transformers\ResourceTransformerInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TacticalCalculatorController extends Controller
+class TacticalCalculatorController extends BaseResourceController
 {
     public $basicData;
 
@@ -149,5 +152,16 @@ class TacticalCalculatorController extends Controller
     {
         $mt = explode(' ', microtime());
         return ((int)$mt[1]) * 1000 + ((int)round($mt[0] * 1000));
+    }
+
+    protected function getTransformer(): ResourceTransformerInterface
+    {
+        // TODO: Implement getTransformer() method.
+
+    }
+
+    protected function getRepository(): BaseRepository
+    {
+        // TODO: Implement getRepository() method.
     }
 }

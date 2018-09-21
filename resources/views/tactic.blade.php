@@ -11,5 +11,17 @@
 
     asdasd
     {{ print_r($data) }}
+
+    <div>
+        Alap adatok:
+        <div class="start-money">{{ $data['basicData']['startMoney'] }}</div>
+        <div class="target-money">{{ $data['basicData']['targetMoney'] }}</div>
+        <div class="odds">{{ $data['basicData']['odds'] }}</div>
+        <div class="bet-step">{{ $data['basicData']['betSteps'] }}</div>
+        <a href="{{ route('basic-data') }}" target="_blank">
+            <button class="change-data">Change basic datas</button>
+        </a>
+    </div>
+
     </body>
 </html>
