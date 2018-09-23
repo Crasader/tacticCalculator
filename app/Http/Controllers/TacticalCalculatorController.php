@@ -48,8 +48,7 @@ class TacticalCalculatorController extends Controller
         $finishMoney = $actualMoney*3;
 
         while ($sumCase < 10000) {
-            //console.log(sumCase + ": " +actualMoney);
-            //console.log(bets);
+
             $sumCase++;
             if ($sumCase > 1) {
                 $maxMoney[count($maxMoney)] = $actualMoney;
@@ -69,47 +68,47 @@ class TacticalCalculatorController extends Controller
             }
             $round = 0;
             $lostNumber=0;
-            while ($actualMoney > 0 && $actualMoney < $finishMoney) {
-
-                //if(lostNumber == 0) {
-                $myTip = rand(0, 1);
-                //}
-                //myTip=0;
-                $result = rand(0,1);
-
-                if ($myTip%2 == $result%2) {
-                    $grow = round($bets[$lostNumber] * $odd - $bets[$lostNumber]);
-                    $actualMoney = round($actualMoney + $grow);
-                    $lostNumber=0;
-                    $win++;
-                    $bets = $this->getBets($actualMoney, $hanyados);
-                } else {
-                    $actualMoney = round($actualMoney - $bets[$lostNumber]);
-                    $grow = - $bets[$lostNumber];
-                    if($lostNumber < count($bets)-1) {
-                        $lostNumber++;
-                    }
-                    $lost++;
-                }
-
-                //if(lostNumber == bets.length) {
-                //lostNumber = 0;
-                //}
-
-                // if (actualMoney > maxMoney) {
-                //     maxMoney = actualMoney;
-                // }
-//break;
-                //console.log(actualMoney + " " + lostNumber + " g:" + grow);
-                $round++;
-                
-                //$("div#round").html(round);
-
-                //$("div#actualMoney").html(actualMoney);
-                //$("div#maxMoney").html(maxMoney);
-                //$("div#lost").html(lost);
-                //$("div#win").html(win);
-            }
+//            while ($actualMoney > 0 && $actualMoney < $finishMoney) {
+//
+//                //if(lostNumber == 0) {
+//                $myTip = rand(0, 1);
+//                //}
+//                //myTip=0;
+//                $result = rand(0,1);
+//
+//                if ($myTip%2 == $result%2) {
+//                    $grow = round($bets[$lostNumber] * $odd - $bets[$lostNumber]);
+//                    $actualMoney = round($actualMoney + $grow);
+//                    $lostNumber=0;
+//                    $win++;
+//                    $bets = $this->getBets($actualMoney, $hanyados);
+//                } else {
+//                    $actualMoney = round($actualMoney - $bets[$lostNumber]);
+//                    $grow = - $bets[$lostNumber];
+//                    if($lostNumber < count($bets)-1) {
+//                        $lostNumber++;
+//                    }
+//                    $lost++;
+//                }
+//
+//                //if(lostNumber == bets.length) {
+//                //lostNumber = 0;
+//                //}
+//
+////                 if (actualMoney > maxMoney) {
+////                     maxMoney = actualMoney;
+////                 }
+////break;
+//                //console.log(actualMoney + " " + lostNumber + " g:" + grow);
+//                $round++;
+//
+//                //$("div#round").html(round);
+//
+//                //$("div#actualMoney").html(actualMoney);
+//                //$("div#maxMoney").html(maxMoney);
+//                //$("div#lost").html(lost);
+//                //$("div#win").html(win);
+//            }
             //$("div#sumCase").html(sumCase);
 
             //$("div#maxRound").html(maxRound);
@@ -128,7 +127,7 @@ class TacticalCalculatorController extends Controller
             'lostRound' => $lostRound,
             'winRound' => $winRound,
             'proportion' => round(($winRound / $lostRound)*100, 5) . '%',
-            'runTime' => ($endTime-$startTime)/1000 . ' s'
+           // 'runTime' => ($endTime-$startTime)/1000 . ' s'
         ]]);
     }
     

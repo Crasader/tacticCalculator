@@ -21,3 +21,6 @@ Route::get('/tactic', 'TacticalCalculatorController@index')->name('tactic');
 Route::group(['middleware' => 'cors', 'frameheader'], function () {
     Route::get('/statistic', 'StatisticController@index')->name('statistic');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

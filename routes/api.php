@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('basic-data', 'Api\BasicDataController', [
+    'only' => ['index', 'update'],
+    'names' => [
+        'index' => 'api.basic-data.index',
+        'update' => 'api.basic-data.update',
+    ],
+]);
