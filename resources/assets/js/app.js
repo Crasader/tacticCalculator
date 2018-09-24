@@ -15,8 +15,18 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import VModal from 'vue-js-modal'
+
+Vue.use(VModal);
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('modal-template', require('./components/ModalTemplate.vue'));
+
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        show: false
+    }
 });
