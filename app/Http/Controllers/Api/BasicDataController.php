@@ -20,7 +20,8 @@ class BasicDataController extends BaseResourceController
 
     public function index(Request $request)
     {
-        print_r("asdads");
+        $y = $this->repository->getAll();
+        $x = 0;
     }
 
     protected function getTransformer(): ResourceTransformerInterface

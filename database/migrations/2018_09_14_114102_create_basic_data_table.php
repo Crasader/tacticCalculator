@@ -16,8 +16,7 @@ class CreateBasicDataTable extends Migration
         Schema::create('basic_data', function (Blueprint $table) {
             $table->string('key')->unique();
             $table->string('value')->nullable();
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 
