@@ -12,15 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
 
 Route::get('/tactic', 'TacticalCalculatorController@index')->name('tactic');
-//Route::get('/statistic', 'StatisticController@index')->name('statistic')->middleware('cors');
+Route::get('/tactic-statistic', 'TacticalCalculatorController@index')->name('tactic-statistic');
 
-Route::group(['middleware' => 'cors', 'frameheader'], function () {
-    Route::get('/statistic', 'StatisticController@index')->name('statistic');
-});
+Route::get('/statistic', 'StatisticController@index')->name('statistic');
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

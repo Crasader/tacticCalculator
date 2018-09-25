@@ -1,15 +1,6 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>Laravel</title>
-    </head>
-    <body>
+@extends('layouts.main')
 
+@section('content')
     asdasd
     {{ print_r($data) }}
 
@@ -31,16 +22,10 @@
     <!-- app -->
     <div id="app">
 
-        <example-component :title="'Teszt Title'"></example-component>
-
-
-        <modal-template :show="show" @close="show = false"></modal-template>
-
-        <button id="show" @click="show = true">New Post</button>
+        <modal-template :show="show" @close="show=false"></modal-template>
+        <button id="show" @click="show=true" class="button blue">Alap adatok módosítása</button>
 
     </div>
-    bbb
-abbb
+
     <script type="text/javascript" src="js/app.js"></script>
-    </body>
-</html>
+@endsection

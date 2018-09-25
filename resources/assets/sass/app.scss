@@ -3,6 +3,7 @@
 
 // Variables
 @import 'variables';
+@import 'header';
 
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
@@ -13,11 +14,9 @@
 }
 
 body {
-  background-color: lightgrey !important;
-}
-
-* {
-  box-sizing: border-box;
+  background-color: $white !important;
+  margin: 0px;
+  font-family: Verdana;
 }
 
 .modal-mask {
@@ -93,4 +92,18 @@ body {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.blue {background-color: $blue;} /* Blue */
+.green { background-color: $green; }
+
+.button {
+  border: none;
+  color: white;
+  padding: 8px 24px;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
 }
