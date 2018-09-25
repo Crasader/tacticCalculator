@@ -7,7 +7,6 @@ services:
       - ".:/project"
     working_dir: "/project"
     environment:
-      TMPDIR: /project/rw/app/temporary
       PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: laravel

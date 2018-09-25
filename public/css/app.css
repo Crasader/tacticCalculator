@@ -1,8 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(http://fonts.googleapis.com/css?family=Raleway);#cssmenu,
+@import url(https://fonts.googleapis.com/css?family=Nunito);#cssmenu,
 #cssmenu ul,
 #cssmenu ul li,
 #cssmenu ul li a {
-  margin: 0;
+  margin: 0px 0 0 0;
   padding: 0;
   border: 0;
   list-style: none;
@@ -30,7 +30,7 @@
 }
 
 #cssmenu ul {
-  background: #F5F5F5;
+  background: #fff;
 }
 
 #cssmenu > ul > li {
@@ -60,20 +60,19 @@
 
 #cssmenu > ul > li > a {
   z-index: 2;
-  padding: 18px 25px 12px 25px;
+  padding: 28px 25px 20px 25px;
   font-size: 15px;
   font-weight: 400;
   text-decoration: none;
   color: #444444;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-  margin-right: -4px;
+  -webkit-transition: all .6s ease;
+  transition: all .6s ease;
 }
 
 #cssmenu > ul > li.active > a,
 #cssmenu > ul > li:hover > a,
 #cssmenu > ul > li > a:hover {
-  color: #ffffff;
+  color: #fff;
 }
 
 #cssmenu > ul > li > a:after {
@@ -83,17 +82,15 @@
   right: 0;
   z-index: -1;
   width: 100%;
-  height: 120%;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  height: 100%;
   content: "";
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
-  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform: perspective(157px) rotateX(-47deg);
   -webkit-transform-origin: bottom;
-  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform: perspective(157px) rotateX(-47deg);
   -moz-transform-origin: bottom;
-  transform: perspective(5px) rotateX(2deg);
+  transform: perspective(157px) rotateX(-47deg);
   transform-origin: bottom;
 }
 
@@ -101,6 +98,13 @@
 #cssmenu > ul > li:hover > a:after,
 #cssmenu > ul > li > a:hover:after {
   background: #47c9af;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+#cssmenu > ul > li.active {
+  z-index: 10;
 }
 
 .header-title {
