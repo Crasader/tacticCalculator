@@ -14,7 +14,8 @@ class CreateBasicDataTable extends Migration
     public function up()
     {
         Schema::create('basic_data', function (Blueprint $table) {
-            $table->string('key')->unique();
+            $table->increments('id')->unique();
+            $table->string('key');
             $table->string('value')->nullable();
             $table->timestamps();
         });

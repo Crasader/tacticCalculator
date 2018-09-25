@@ -19,6 +19,7 @@
     <!-- app -->
     <div id="app">
 
+
         <modal-template :show="show" @close="show=false"></modal-template>
         <button id="show" @click="show=true" class="button blue">Alap adatok módosítása</button>
 
