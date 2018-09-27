@@ -31,7 +31,6 @@ class TacticalCalculatorController extends Controller
             $this->basicDataTransformer
         );
 
-
         $startTime = $this->milliseconds();
         $actualMoney = 5000;
         $startMoney = 5000;
@@ -142,7 +141,7 @@ class TacticalCalculatorController extends Controller
 
         $endTime = $this->milliseconds();
         return view('tactic', ['data' => [
-            'basicData' => json_encode($basicData),
+            'basicData' => json_encode($basicData['data']),
             'lostRound' => $lostRound,
             'winRound' => $winRound,
             'proportion' => round(($winRound / $lostRound)*100, 5) . '%',

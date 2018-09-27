@@ -124,6 +124,12 @@
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 5px;
+  text-shadow: 1px 1px #000;
+}
+
+.header-title-text a:hover {
+  text-decoration: none;
+  color: red;
 }
 
 .header-title-text a:active {
@@ -243,5 +249,12 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+}
+
+.tactic-app {
+  width: 90%;
+  margin: auto;
+  height: 100%;
+  margin-top: 20px;
 }
 

@@ -16,7 +16,6 @@ window.Vue = require('vue');
  */
 
 Vue.component('modal-template', require('./components/ModalTemplate.vue'));
-
 Vue.component('basic-table', require('./components/BasicTable.vue'));
 
 

@@ -133,6 +133,11 @@ abstract class BaseRepository
         return $this->model->findOrFail($id);
     }
 
+    public function getByAttributeOrFail($attribute, $data)
+    {
+        return $this->model->where($attribute = $data)->firstOrFail();
+    }
+
     public function delete($id)
     {
         return $this->model->findOrFail($id)->delete();
@@ -148,7 +153,6 @@ abstract class BaseRepository
         /**
          * @var $model \Illuminate\Database\Eloquent\Model
          */
-
         $model = $this->getByIdOrFail($id);
         $model->update($data);
         return $model;

@@ -18,7 +18,7 @@ class BasicDataTransformer extends BaseResourceTransformer implements ResourceTr
     {
         return [
             'id' => $basicData->id,
-            'key' => $basicData->key,
+            'type' => $basicData->key,
             'value' => $basicData->value
         ];
     }

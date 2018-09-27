@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\PatchRequest;
 use App\Repositories\BaseRepository;
 use App\Repositories\BasicDataRepository;
 use App\Transformers\Api\BasicDataTransformer;
@@ -28,6 +29,16 @@ class BasicDataController extends BaseResourceController
                     $this->repository->getAll(),
                     $this->getTransformer()
                 );
+    }
+
+    public function update(PatchRequest $request, $id)
+    {
+        $input = $request->input();
+        $attributes = $input['data']['attributes'];
+        $this->repository->update($id, $attributes);
+        dd();
+
+        $x = 0;
     }
 
     protected function getTransformer(): ResourceTransformerInterface
