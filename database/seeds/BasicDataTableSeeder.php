@@ -6,10 +6,15 @@ use Illuminate\Support\Facades\DB;
 
 class BasicDataTableSeeder extends Seeder
 {
+//    const BASIC_DATA = [
+//        ['key' => 'startMoney', 'value' => '10000'],
+//        ['key' => 'finishMoney', 'value' => '30000'],
+//        ['key' => 'odds', 'value' => '1.83'],
+//    ];
     const BASIC_DATA = [
-        ['key' => 'startMoney', 'value' => '10000'],
-        ['key' => 'finishMoney', 'value' => '30000'],
-        ['key' => 'odds', 'value' => '1.83'],
+        'startMoney' => '10000',
+        'finishMoney' => '30000',
+        'odds' => '1.83'
     ];
 
     /**

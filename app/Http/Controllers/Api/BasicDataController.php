@@ -34,7 +34,7 @@ class BasicDataController extends BaseResourceController
     public function update(PatchRequest $request, $id)
     {
         $input = $request->input();
-        $attributes = $input['data']['attributes'];
+        $attributes = ['value' => json_encode($input['data']['attributes'])];
         $this->repository->update($id, $attributes);
         dd();
 

@@ -5,15 +5,13 @@
                 <h1 class="md-title">Alap adatok</h1>
             </md-table-toolbar>
             <md-table-row>
-                <md-table-head md-numeric>ID</md-table-head>
                 <md-table-head>Kulcs</md-table-head>
                 <md-table-head>Érték</md-table-head>
             </md-table-row>
 
-            <md-table-row v-for="(datak, index) in fullDataValue" v-bind:key="datak.id">
-                <md-table-cell md-numeric>{{ index }}</md-table-cell>
-                <md-table-cell>{{ datak.key }}</md-table-cell>
-                <md-table-cell md-numeric>{{ datak.value }}</md-table-cell>
+            <md-table-row v-for="(data, index) in fullDataValue" v-bind:key="index">
+                <md-table-cell>{{ index }}</md-table-cell>
+                <md-table-cell md-numeric>{{ data }}</md-table-cell>
             </md-table-row>
         </md-table>
 
@@ -27,8 +25,6 @@
 <script>
     import VueMaterial from 'vue-material'
     import 'vue-material/dist/vue-material.min.css'
-
-    // import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
 
@@ -52,12 +48,14 @@
             },
         },
         mounted () {
-            this.fullDataValue = JSON.parse(this.fullData[0].value);
-            axios
-                .get('http://localhost/api/basic-data')
-                .then(response =>
-                    { this.info = response.data }
-                );
+            this.fullDataValue = JSON.parse(this.fullData.value);
+            console.log(this.fullDataValue);
+            console.log('basic-table');
+            // axios
+            //     .get('http://localhost/api/basic-data')
+            //     .then(response =>
+            //         { console.log(response.data) }
+            //     );
         }
     }
 </script>

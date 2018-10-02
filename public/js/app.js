@@ -25275,8 +25275,9 @@ module.exports = __webpack_require__(59);
 
 /***/ }),
 /* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -47693,7 +47694,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask {\n    text-align: left;\n}\n.modal-container {\n    width: 380px;\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask {\n    text-align: left;\n}\n.modal-container {\n    margin-top: 15%;\n    width: 380px;\n}\n.md-snackbar, .md-snackbar-content {\n    z-index: 100000;\n    background-color: white;\n}\n", ""]);
 
 // exports
 
@@ -47766,16 +47767,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     template: '#modal-template',
+    name: 'SnackbarExample',
     props: ['show', 'fullData'],
     data: function data() {
         return {
-            startMoney: 'AA',
-            finishMoney: '',
-            odds: '',
-            data: JSON.parse(this.fullData[0].value)
+            showSnackbar: false,
+            position: 'center',
+            duration: 4000,
+            isInfinity: true,
+            list: [],
+            fullDataValue: JSON.parse(this.fullData.value)
+            // type: this.fullDataValue.type,
+            // id: this.fullDataValue.id
         };
     },
     methods: {
@@ -47785,15 +47804,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.finishMoney = '';
         },
         savePost: function savePost() {
-            // Some save logic goes here...
-            console.log('addasasd');
-            axios.patch('/api/basic-data/basic-data', {
+            axios.patch('/api/basic-data/' + this.id, {
                 'data': {
+                    'id': this.id,
                     'type': this.type,
                     'attributes': {
-                        'startMoney': this.startMoney,
-                        'finishMoney': this.finishMoney,
-                        'odds': this.odds
+                        'startMoney': this.list.startMoney,
+                        'finishMoney': this.list.finishMoney,
+                        'odds': this.list.odds
                     }
                 }
             }).then(function (response) {
@@ -47802,16 +47820,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        closeModal: function closeModal() {
+            var _this = this;
+
+            document.addEventListener("keydown", function (e) {
+                if (_this.show && e.keyCode == 27) {
+                    _this.close();
+                }
+            });
         }
     },
     mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.show && e.keyCode == 27) {
-                _this.close();
-            }
+        var list = [];
+        $.each(this.fullDataValue, function (key, value) {
+            list[key] = value;
         });
+        this.list = list;
+
+        this.closeModal();
     }
 });
 
@@ -47853,9 +47880,25 @@ var render = function() {
               [
                 _vm._v("\n                Induló tőke\n                "),
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.list.startMoney,
+                      expression: "list.startMoney"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: { type: "text" },
-                  domProps: { value: _vm.data[0].value }
+                  domProps: { value: _vm.list.startMoney },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.list, "startMoney", $event.target.value)
+                    }
+                  }
                 }),
                 _vm._v(" "),
                 _c("md-tooltip", { attrs: { "md-direction": "top" } }, [
@@ -47868,18 +47911,50 @@ var render = function() {
             _c("label", { staticClass: "form-label" }, [
               _vm._v("\n                Cél tőke\n                "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.list.finishMoney,
+                    expression: "list.finishMoney"
+                  }
+                ],
                 staticClass: "form-control",
                 attrs: { type: "number", placeholder: "finishMoney" },
-                domProps: { value: _vm.data[1].value }
+                domProps: { value: _vm.list.finishMoney },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.list, "finishMoney", $event.target.value)
+                  }
+                }
               })
             ]),
             _vm._v(" "),
             _c("label", { staticClass: "form-label" }, [
               _vm._v("\n                Szorzó\n                "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.list.odds,
+                    expression: "list.odds"
+                  }
+                ],
                 staticClass: "form-control",
                 attrs: { type: "number", placeholder: "odds" },
-                domProps: { value: _vm.data[2].value }
+                domProps: { value: _vm.list.odds },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.list, "odds", $event.target.value)
+                  }
+                }
               })
             ])
           ]),
@@ -47897,7 +47972,68 @@ var render = function() {
               },
               [_vm._v("\n                Mentés\n            ")]
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              attrs: { novalidate: "" },
+              on: {
+                submit: function($event) {
+                  $event.stopPropagation()
+                  $event.preventDefault()
+                  _vm.showSnackbar = true
+                }
+              }
+            },
+            [
+              _c(
+                "md-button",
+                {
+                  staticClass: "md-primary md-raised",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Open Snackbar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "md-snackbar",
+                {
+                  attrs: {
+                    "md-position": _vm.position,
+                    "md-duration": _vm.isInfinity ? Infinity : _vm.duration,
+                    "md-active": _vm.showSnackbar,
+                    "md-persistent": ""
+                  },
+                  on: {
+                    "update:mdActive": function($event) {
+                      _vm.showSnackbar = $event
+                    }
+                  }
+                },
+                [
+                  _c("span", [
+                    _vm._v("Connection timeout. Showing limited messages!")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "md-button",
+                    {
+                      staticClass: "md-primary",
+                      on: {
+                        click: function($event) {
+                          _vm.showSnackbar = false
+                        }
+                      }
+                    },
+                    [_vm._v("Retry")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ]
       )
     ]
@@ -48051,13 +48187,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
-
-// import Vue from 'vue'
 
 
 
@@ -48082,12 +48214,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_axios___default.a, __WEBPACK_IMPORTED_MO
         }
     },
     mounted: function mounted() {
-        var _this = this;
-
-        this.fullDataValue = JSON.parse(this.fullData[0].value);
-        __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost/api/basic-data').then(function (response) {
-            _this.info = response.data;
-        });
+        this.fullDataValue = JSON.parse(this.fullData.value);
+        console.log(this.fullDataValue);
+        console.log('basic-table');
+        // axios
+        //     .get('http://localhost/api/basic-data')
+        //     .then(response =>
+        //         { console.log(response.data) }
+        //     );
     }
 });
 
@@ -78930,10 +79064,6 @@ var render = function() {
           _c(
             "md-table-row",
             [
-              _c("md-table-head", { attrs: { "md-numeric": "" } }, [
-                _vm._v("ID")
-              ]),
-              _vm._v(" "),
               _c("md-table-head", [_vm._v("Kulcs")]),
               _vm._v(" "),
               _c("md-table-head", [_vm._v("Érték")])
@@ -78941,19 +79071,15 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.fullDataValue, function(datak, index) {
+          _vm._l(_vm.fullDataValue, function(data, index) {
             return _c(
               "md-table-row",
-              { key: datak.id },
+              { key: index },
               [
-                _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(index))
-                ]),
-                _vm._v(" "),
-                _c("md-table-cell", [_vm._v(_vm._s(datak.key))]),
+                _c("md-table-cell", [_vm._v(_vm._s(index))]),
                 _vm._v(" "),
                 _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
-                  _vm._v(_vm._s(datak.value))
+                  _vm._v(_vm._s(data))
                 ])
               ],
               1
