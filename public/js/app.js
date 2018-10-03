@@ -25297,16 +25297,11 @@ window.Vue = __webpack_require__(13);
 
 Vue.component('modal-template', __webpack_require__(42));
 Vue.component('basic-table', __webpack_require__(48));
+Vue.component('snackbar', __webpack_require__(67));
 
 var app = new Vue({
-    el: '#app',
-    data: function data() {
-        return {
-            show: false,
-            info: null,
-            basicData: []
-        };
-    }
+  el: '#app',
+  data: function data() {}
 });
 
 /***/ }),
@@ -47694,7 +47689,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask {\n    text-align: left;\n}\n.modal-container {\n    margin-top: 15%;\n    width: 380px;\n}\n.md-snackbar, .md-snackbar-content {\n    z-index: 100000;\n    background-color: white;\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask {\n    text-align: left;\n}\n.modal-container {\n    margin-top: 15%;\n    width: 380px;\n}\n", ""]);
 
 // exports
 
@@ -47738,16 +47733,8 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Snackbar_vue__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Snackbar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Snackbar_vue__);
 //
 //
 //
@@ -47781,33 +47768,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    template: '#modal-template',
-    name: 'SnackbarExample',
+    components: __WEBPACK_IMPORTED_MODULE_0__Snackbar_vue__["Snackbar"],
     props: ['show', 'fullData'],
     data: function data() {
         return {
-            showSnackbar: false,
-            position: 'center',
-            duration: 4000,
-            isInfinity: true,
             list: [],
             fullDataValue: JSON.parse(this.fullData.value)
-            // type: this.fullDataValue.type,
-            // id: this.fullDataValue.id
         };
     },
     methods: {
-        close: function close() {
-            this.$emit('close');
-            this.startMoney = '';
-            this.finishMoney = '';
-        },
         savePost: function savePost() {
-            axios.patch('/api/basic-data/' + this.id, {
+            var _this = this;
+
+            axios.patch('/api/basic-data/' + this.fullData.id, {
                 'data': {
-                    'id': this.id,
-                    'type': this.type,
+                    'id': this.fullData.id,
+                    'type': this.fullData.type,
                     'attributes': {
                         'startMoney': this.list.startMoney,
                         'finishMoney': this.list.finishMoney,
@@ -47815,23 +47794,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 }
             }).then(function (response) {
-                console.log(response);
-                this.close();
+                _this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                _this.close();
             }).catch(function (error) {
-                console.log(error);
+                var message = "Hiba: " + error.message;
+                _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
             });
         },
+        close: function close() {
+            this.$emit('close');
+        },
         closeModal: function closeModal() {
-            var _this = this;
+            var _this2 = this;
 
             document.addEventListener("keydown", function (e) {
-                if (_this.show && e.keyCode == 27) {
-                    _this.close();
+                if (_this2.show && e.keyCode == 27) {
+                    _this2.close();
                 }
             });
         }
     },
     mounted: function mounted() {
+        //mounted data from backend
         var list = [];
         $.each(this.fullDataValue, function (key, value) {
             list[key] = value;
@@ -47974,67 +47958,9 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c(
-            "form",
-            {
-              attrs: { novalidate: "" },
-              on: {
-                submit: function($event) {
-                  $event.stopPropagation()
-                  $event.preventDefault()
-                  _vm.showSnackbar = true
-                }
-              }
-            },
-            [
-              _c(
-                "md-button",
-                {
-                  staticClass: "md-primary md-raised",
-                  attrs: { type: "submit" }
-                },
-                [_vm._v("Open Snackbar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "md-snackbar",
-                {
-                  attrs: {
-                    "md-position": _vm.position,
-                    "md-duration": _vm.isInfinity ? Infinity : _vm.duration,
-                    "md-active": _vm.showSnackbar,
-                    "md-persistent": ""
-                  },
-                  on: {
-                    "update:mdActive": function($event) {
-                      _vm.showSnackbar = $event
-                    }
-                  }
-                },
-                [
-                  _c("span", [
-                    _vm._v("Connection timeout. Showing limited messages!")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "md-button",
-                    {
-                      staticClass: "md-primary",
-                      on: {
-                        click: function($event) {
-                          _vm.showSnackbar = false
-                        }
-                      }
-                    },
-                    [_vm._v("Retry")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ]
+          _c("snackbar", { ref: "snackbar" })
+        ],
+        1
       )
     ]
   )
@@ -48159,10 +48085,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_material___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_material__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_axios__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_axios__);
 //
 //
 //
@@ -48187,14 +48109,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
-
 
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
-Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_2_axios___default.a);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'BasicTable',
     props: ['basicData'],
@@ -79035,14 +78954,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o};!function(){function o(e,t){if(!o.installed){if(o.installed=!0,!t)return void console.error("You have to install axios");e.axios=t,Object.defineProperties(e.prototype,{axios:{get:function(){return t}},$http:{get:function(){return t}}})}}"object"==( false?"undefined":_typeof(exports))?module.exports=o: true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function(){return o}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
-
-/***/ }),
+/* 57 */,
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -79137,6 +79049,201 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(68)
+}
+var normalizeComponent = __webpack_require__(15)
+/* script */
+var __vue_script__ = __webpack_require__(70)
+/* template */
+var __vue_template__ = __webpack_require__(71)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Snackbar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d3d35088", Component.options)
+  } else {
+    hotAPI.reload("data-v-d3d35088", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(69);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("56899e90", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d3d35088\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Snackbar.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d3d35088\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Snackbar.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.md-snackbar, .md-snackbar-content {\n    z-index: 100000;\n}\n.success {\n    background-color: #DEF0D9;\n    color: #347641;\n}\n.danger {\n    background-color: #F4DEDE;\n    color: #AF4445;\n}\n.warning {\n    background-color: #FDF8E4;\n    color: #8D6D40;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            duration: 4000,
+            show: false,
+            isInfinity: false,
+            subText: "",
+            color: "success",
+            position: "center"
+        };
+    },
+    methods: {
+        openSnackbar: function openSnackbar(text, color) {
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 4000;
+
+            this.color = color;
+            this.subText = text;
+            this.duration = duration;
+            this.show = true;
+        }
+    }
+});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "md-snackbar",
+        {
+          class: _vm.color,
+          attrs: {
+            "md-position": _vm.position,
+            "md-duration": _vm.isInfinity ? Infinity : _vm.duration,
+            "md-active": _vm.show,
+            "md-persistent": ""
+          },
+          on: {
+            "update:mdActive": function($event) {
+              _vm.show = $event
+            }
+          }
+        },
+        [
+          _c("span", [_vm._v(_vm._s(_vm.subText))]),
+          _vm._v(" "),
+          _c(
+            "md-button",
+            {
+              staticClass: "md-primary",
+              on: {
+                click: function($event) {
+                  _vm.show = false
+                }
+              }
+            },
+            [_vm._v("X")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d3d35088", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

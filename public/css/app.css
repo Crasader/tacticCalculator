@@ -236,8 +236,16 @@ body {
 
 /* Blue */
 
+.blue:hover {
+  background-color: #2484d2;
+}
+
 .green {
   background-color: #38c172;
+}
+
+.green:hover {
+  background-color: #32ad66;
 }
 
 .button {

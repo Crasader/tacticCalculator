@@ -95,7 +95,13 @@ body {
 }
 
 .blue {background-color: $blue;} /* Blue */
+.blue:hover {
+  background-color: #2484d2;
+}
 .green { background-color: $green; }
+.green:hover {
+  background-color: #32ad66;
+}
 
 .button {
   border: none;
@@ -107,7 +113,6 @@ body {
   display: inline-block;
   font-size: 12px;
 }
-
 .tactic-app {
   width: 90%;
   margin: auto;

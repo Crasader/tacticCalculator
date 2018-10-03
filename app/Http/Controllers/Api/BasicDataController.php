@@ -35,10 +35,8 @@ class BasicDataController extends BaseResourceController
     {
         $input = $request->input();
         $attributes = ['value' => json_encode($input['data']['attributes'])];
-        $this->repository->update($id, $attributes);
-        dd();
-
-        $x = 0;
+        $updated = $this->repository->update($id, $attributes);
+        return $this->getUpdateResponse($updated);
     }
 
     protected function getTransformer(): ResourceTransformerInterface

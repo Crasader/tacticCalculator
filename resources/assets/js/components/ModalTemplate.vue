@@ -25,49 +25,29 @@
                 </button>
             </div>
 
-
-            <form novalidate @submit.stop.prevent="showSnackbar = true">
-                <md-button type="submit" class="md-primary md-raised">Open Snackbar</md-button>
-
-                <md-snackbar :md-position="position" :md-duration="isInfinity ? Infinity : duration" :md-active.sync="showSnackbar" md-persistent>
-                    <span>Connection timeout. Showing limited messages!</span>
-                    <md-button class="md-primary" @click="showSnackbar = false">Retry</md-button>
-                </md-snackbar>
-            </form>
-
-
+            <snackbar ref="snackbar"></snackbar>
         </div>
 
     </div>
 </template>
 <script>
+    import { Snackbar } from './Snackbar.vue';
+
     export default {
-        template: '#modal-template',
-        name: 'SnackbarExample',
+        components: Snackbar,
         props: ['show', 'fullData'],
         data: function () {
             return {
-                showSnackbar: false,
-                position: 'center',
-                duration: 4000,
-                isInfinity: true,
                 list: [],
                 fullDataValue: JSON.parse(this.fullData.value),
-                // type: this.fullDataValue.type,
-                // id: this.fullDataValue.id
             };
         },
         methods: {
-            close: function () {
-                this.$emit('close');
-                this.startMoney = '';
-                this.finishMoney = '';
-            },
             savePost: function () {
-                axios.patch('/api/basic-data/' + this.id, {
+                axios.patch('/api/basic-data/' + this.fullData.id, {
                     'data': {
-                        'id': this.id,
-                        'type': this.type,
+                        'id': this.fullData.id,
+                        'type': this.fullData.type,
                         'attributes': {
                             'startMoney': this.list.startMoney,
                             'finishMoney': this.list.finishMoney,
@@ -75,13 +55,17 @@
                         }
                     }
                 })
-                    .then(function (response) {
-                        console.log(response);
-                        this.close();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                .then((response) => {
+                    this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                    this.close();
+                })
+                .catch((error) => {
+                    let message = "Hiba: " + error.message;
+                    this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                });
+            },
+            close: function () {
+                this.$emit('close');
             },
             closeModal: function () {
                 document.addEventListener("keydown", (e) => {
@@ -92,6 +76,7 @@
             }
         },
         mounted: function () {
+            //mounted data from backend
             let list = [];
             $.each(this.fullDataValue, function (key, value) {
                 list[key] = value;
@@ -111,9 +96,5 @@
     .modal-container {
         margin-top: 15%;
         width: 380px;
-    }
-    .md-snackbar, .md-snackbar-content {
-        z-index: 100000;
-        background-color: white;
     }
 </style>
