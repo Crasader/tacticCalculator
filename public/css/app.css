@@ -147,6 +147,7 @@
 }
 
 body {
+  overflow-x: hidden;
   background-color: #fff !important;
   margin: 0px;
   font-family: Verdana;

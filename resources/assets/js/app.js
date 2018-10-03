@@ -21,6 +21,5 @@ Vue.component('snackbar', require('./components/Snackbar.vue'));
 
 
 const app = new Vue({
-    el: '#app',
-    data() {}
+    el: '#app'
 })

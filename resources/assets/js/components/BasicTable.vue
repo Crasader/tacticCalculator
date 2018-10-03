@@ -16,7 +16,7 @@
         </md-table>
 
         <div class="basic-table-buttons">
-            <modal-template :show="show" :fullData="this.fullData" @close="show=false"></modal-template>
+            <modal-template :show="show" :fullData="this.fullData" @close="show=false" @refresh="refreshDataFromChild"></modal-template>
             <button id="show" @click="show=true" class="button blue">Alap adatok módosítása</button>
         </div>
     </div>
@@ -30,7 +30,7 @@
     export default {
         name: 'BasicTable',
         props: [ 'basicData' ],
-        data() {
+        data: function () {
             return {
                 show: false,
                 info: null,
@@ -40,14 +40,12 @@
             }
         },
         methods: {
-            calculate: function () {
-                console.log("asdadsads");
-            },
+            refreshDataFromChild: function (value) {
+                this.fullDataValue = JSON.parse(value);
+            }
         },
         mounted () {
             this.fullDataValue = JSON.parse(this.fullData.value);
-            console.log(this.fullDataValue);
-            console.log('basic-table');
             // axios
             //     .get('http://localhost/api/basic-data')
             //     .then(response =>

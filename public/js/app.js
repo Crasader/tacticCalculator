@@ -25300,8 +25300,7 @@ Vue.component('basic-table', __webpack_require__(48));
 Vue.component('snackbar', __webpack_require__(67));
 
 var app = new Vue({
-  el: '#app',
-  data: function data() {}
+  el: '#app'
 });
 
 /***/ }),
@@ -47795,6 +47794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }).then(function (response) {
                 _this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                _this.$emit('refresh', response.data.value);
                 _this.close();
             }).catch(function (error) {
                 var message = "Hiba: " + error.message;
@@ -47804,7 +47804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         close: function close() {
             this.$emit('close');
         },
-        closeModal: function closeModal() {
+        closeModalListener: function closeModalListener() {
             var _this2 = this;
 
             document.addEventListener("keydown", function (e) {
@@ -47821,8 +47821,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             list[key] = value;
         });
         this.list = list;
-
-        this.closeModal();
+        this.closeModalListener();
+        var product = "balbal";
+        this.$emit('clicked-show-detail', product);
     }
 });
 
@@ -48126,16 +48127,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
             fullDataValue: null
         };
     },
-
     methods: {
-        calculate: function calculate() {
-            console.log("asdadsads");
+        refreshDataFromChild: function refreshDataFromChild(value) {
+            this.fullDataValue = JSON.parse(value);
         }
     },
     mounted: function mounted() {
         this.fullDataValue = JSON.parse(this.fullData.value);
-        console.log(this.fullDataValue);
-        console.log('basic-table');
         // axios
         //     .get('http://localhost/api/basic-data')
         //     .then(response =>
@@ -79010,7 +79008,8 @@ var render = function() {
             on: {
               close: function($event) {
                 _vm.show = false
-              }
+              },
+              refresh: _vm.refreshDataFromChild
             }
           }),
           _vm._v(" "),

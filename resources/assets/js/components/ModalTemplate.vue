@@ -57,6 +57,7 @@
                 })
                 .then((response) => {
                     this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                    this.$emit('refresh', response.data.value);
                     this.close();
                 })
                 .catch((error) => {
@@ -67,7 +68,7 @@
             close: function () {
                 this.$emit('close');
             },
-            closeModal: function () {
+            closeModalListener: function () {
                 document.addEventListener("keydown", (e) => {
                     if (this.show && e.keyCode == 27) {
                         this.close();
@@ -82,8 +83,9 @@
                 list[key] = value;
             });
             this.list = list;
-
-            this.closeModal();
+            this.closeModalListener();
+            let product = "balbal";
+            this.$emit('clicked-show-detail', product);
 
         }
     }

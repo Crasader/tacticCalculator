@@ -6,5 +6,5 @@
 <br>
 <br>
 <div class="footer" id='cssmenu'>
-lábléc
+lábléc TEMPLÉJT FORMÁZZ MEG PLIZ
 </div>
