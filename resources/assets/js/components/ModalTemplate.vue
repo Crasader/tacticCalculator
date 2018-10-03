@@ -7,53 +7,96 @@
             <div class="modal-body">
                 <label class="form-label">
                     Induló tőke
-                    <input type="number" v-model="startMoney" class="form-control" placeholder="startMoney">
+                    <input type="text" class="form-control" v-model="list.startMoney">
+                    <md-tooltip md-direction="top">Top</md-tooltip>
                 </label>
                 <label class="form-label">
                     Cél tőke
-                    <input type="number" v-model="finishMoney" class="form-control" placeholder="finishMoney">
+                    <input type="number" v-model="list.finishMoney" class="form-control" placeholder="finishMoney">
                 </label>
-                <!--<label class="form-label">-->
-                    <!--Body-->
-                    <!--<textarea v-model="body" rows="5" class="form-control"></textarea>-->
-                <!--</label>-->
+                <label class="form-label">
+                    Szorzó
+                    <input type="number" v-model="list.odds" class="form-control" placeholder="odds">
+                </label>
             </div>
             <div class="modal-footer text-right">
                 <button class="modal-default-button green button" @click="savePost()">
                     Mentés
                 </button>
             </div>
+
+            <snackbar ref="snackbar"></snackbar>
         </div>
+
     </div>
 </template>
 <script>
+    import { Snackbar } from './Snackbar.vue';
+
     export default {
-        template: '#modal-template',
-        props: ['show'],
+        components: Snackbar,
+        props: ['show', 'fullData'],
         data: function () {
             return {
-                startMoney: '',
-                finishMoney: ''
+                list: [],
+                fullDataValue: JSON.parse(this.fullData.value),
             };
         },
         methods: {
+            savePost: function () {
+                axios.patch('/api/basic-data/' + this.fullData.id, {
+                    'data': {
+                        'id': this.fullData.id,
+                        'type': this.fullData.type,
+                        'attributes': {
+                            'startMoney': this.list.startMoney,
+                            'finishMoney': this.list.finishMoney,
+                            'odds': this.list.odds
+                        }
+                    }
+                })
+                .then((response) => {
+                    this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                    this.$emit('refresh', response.data.value);
+                    this.close();
+                })
+                .catch((error) => {
+                    let message = "Hiba: " + error.message;
+                    this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                });
+            },
             close: function () {
                 this.$emit('close');
-                this.startMoney = '';
-                this.finishMoney = '';
             },
-            savePost: function () {
-                // Some save logic goes here...
-
-                this.close();
+            closeModalListener: function () {
+                document.addEventListener("keydown", (e) => {
+                    if (this.show && e.keyCode == 27) {
+                        this.close();
+                    }
+                });
             }
         },
         mounted: function () {
-            document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 27) {
-                    this.close();
-                }
+            //mounted data from backend
+            let list = [];
+            $.each(this.fullDataValue, function (key, value) {
+                list[key] = value;
             });
+            this.list = list;
+            this.closeModalListener();
+            let product = "balbal";
+            this.$emit('clicked-show-detail', product);
+
         }
     }
 </script>
+
+<style>
+    .modal-mask {
+        text-align: left;
+    }
+    .modal-container {
+        margin-top: 15%;
+        width: 380px;
+    }
+</style>

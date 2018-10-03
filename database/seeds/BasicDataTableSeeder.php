@@ -1,14 +1,20 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class BasicDataTableSeeder extends Seeder
 {
-    const BASIC_DATAS = [
-        1 => ['key' => 'startMoney', 'value' => '10000'],
-        2 => ['key' => 'finishMoney', 'value' => '30000'],
-        3 => ['key' => 'odds', 'value' => '1.83'],
+//    const BASIC_DATA = [
+//        ['key' => 'startMoney', 'value' => '10000'],
+//        ['key' => 'finishMoney', 'value' => '30000'],
+//        ['key' => 'odds', 'value' => '1.83'],
+//    ];
+    const BASIC_DATA = [
+        'startMoney' => '10000',
+        'finishMoney' => '30000',
+        'odds' => '1.83'
     ];
 
     /**
@@ -19,16 +25,15 @@ class BasicDataTableSeeder extends Seeder
     public function run()
     {
         $basicDataTable = DB::table('basic_data');
-
-        foreach (static::BASIC_DATAS as $id => $basicData) {
-            try {
-                $basicDataTable->insert([
-                    'key' => $basicData['key'],
-                    'value' => $basicData['value'],
-                ]);
-            } catch (PDOException $e) {
-                $this->command->warn('Import: Basic data key is already in use: <'.$basicData['key'].'>, Error_code: '.$e->getCode().", Data won't be loaded.\n");
-            }
+        try {
+            $basicDataTable->insert([
+                'key' => 'basic-data',
+                'value' => json_encode(static::BASIC_DATA),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        } catch (PDOException $e) {
+            $this->command->warn('Error_code: '.$e->getCode().", Data won't be loaded.\n");
         }
     }
 }

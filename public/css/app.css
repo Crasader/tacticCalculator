@@ -86,11 +86,11 @@
   content: "";
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
-  -webkit-transform: perspective(157px) rotateX(-47deg);
+  -webkit-transform: perspective(148px) rotateX(-47deg);
   -webkit-transform-origin: bottom;
-  -moz-transform: perspective(157px) rotateX(-47deg);
+  -moz-transform: perspective(148px) rotateX(-47deg);
   -moz-transform-origin: bottom;
-  transform: perspective(157px) rotateX(-47deg);
+  transform: perspective(148px) rotateX(-47deg);
   transform-origin: bottom;
 }
 
@@ -124,6 +124,12 @@
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 5px;
+  text-shadow: 1px 1px #000;
+}
+
+.header-title-text a:hover {
+  text-decoration: none;
+  color: red;
 }
 
 .header-title-text a:active {
@@ -141,6 +147,7 @@
 }
 
 body {
+  overflow-x: hidden;
   background-color: #fff !important;
   margin: 0px;
   font-family: Verdana;
@@ -230,8 +237,16 @@ body {
 
 /* Blue */
 
+.blue:hover {
+  background-color: #2484d2;
+}
+
 .green {
   background-color: #38c172;
+}
+
+.green:hover {
+  background-color: #32ad66;
 }
 
 .button {
@@ -243,5 +258,12 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+}
+
+.tactic-app {
+  width: 90%;
+  margin: auto;
+  height: 100%;
+  margin-top: 20px;
 }
 

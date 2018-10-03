@@ -2,17 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\BasicDataRepository;
+use App\Transformers\Api\BasicDataTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TacticalCalculatorController extends Controller
 {
     public $basicData;
+    public $basicDataRepository;
+    public $basicDataTransformer;
+
+    public function __construct(
+        BasicDataRepository $basicDataRepository,
+        BasicDataTransformer $basicDataTransformer
+    ) {
+        parent::__construct();
+        $this->basicDataRepository = $basicDataRepository;
+        $this->basicDataTransformer = $basicDataTransformer;
+
+    }
 
     // behattal betölteni az oldalt, majd leszedni a tartalmát
     public function index(Request $request) 
     {
-        
+        $basicData = $this->fractal->collection(
+            $this->basicDataRepository->getAll(),
+            $this->basicDataTransformer
+        );
 
         $startTime = $this->milliseconds();
         $actualMoney = 5000;
@@ -124,6 +141,7 @@ class TacticalCalculatorController extends Controller
 
         $endTime = $this->milliseconds();
         return view('tactic', ['data' => [
+            'basicData' => json_encode($basicData['data'][0]),
             'lostRound' => $lostRound,
             'winRound' => $winRound,
             'proportion' => round(($winRound / $lostRound)*100, 5) . '%',

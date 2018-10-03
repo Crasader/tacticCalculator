@@ -16,10 +16,10 @@ window.Vue = require('vue');
  */
 
 Vue.component('modal-template', require('./components/ModalTemplate.vue'));
+Vue.component('basic-table', require('./components/BasicTable.vue'));
+Vue.component('snackbar', require('./components/Snackbar.vue'));
+
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        show: false
-    }
-});
+    el: '#app'
+})
