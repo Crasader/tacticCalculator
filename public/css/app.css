@@ -76,6 +76,7 @@
 }
 
 #cssmenu > ul > li > a:after {
+  border-color: white;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -125,6 +126,7 @@
   font-weight: bold;
   letter-spacing: 5px;
   text-shadow: 1px 1px #000;
+  color: white;
 }
 
 .header-title-text a:hover {
@@ -132,12 +134,15 @@
   color: red;
 }
 
-.header-title-text a:active {
+.header-title-text a:active,
+.header-title-text a:visited {
   color: #fff;
 }
 
-.header-title-text a:visited {
+.md-theme-default a:not(.md-button):hover {
   color: #fff;
+  cursor: default;
+  text-decoration: none;
 }
 
 .navbar-laravel {
@@ -235,10 +240,12 @@ body {
   background-color: #3490dc;
 }
 
-/* Blue */
-
 .blue:hover {
   background-color: #2484d2;
+}
+
+.blue:active {
+  background-color: #2076bd;
 }
 
 .green {
@@ -247,6 +254,10 @@ body {
 
 .green:hover {
   background-color: #32ad66;
+}
+
+.green:active {
+  background-color: #2d9b5b;
 }
 
 .button {
@@ -265,9 +276,5 @@ body {
   margin: auto;
   height: 100%;
   margin-top: 20px;
-}
-
-#cssmenu > ul > li > a:after {
-  border-color: white;
 }
 

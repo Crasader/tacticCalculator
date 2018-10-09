@@ -47776,6 +47776,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47792,8 +47806,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 finishMoney: null,
                 odds: null
             },
-            sending: false,
-            fullDataValue: []
+            sending: false
         };
     },
     validations: {
@@ -47802,7 +47815,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["minLength"])(2),
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["maxLength"])(10),
-                between: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["between"])(500, 30000)
+                between: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["between"])(500, 50000)
+            },
+            finishMoney: {
+                required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["minLength"])(2),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["maxLength"])(10),
+                between: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["between"])(500, 50000)
+            },
+            odds: {
+                required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"],
+                between: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["between"])(0.5, 2.01)
             }
         }
     },
@@ -79166,7 +79189,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "modal-container",
+          staticClass: "modal-container w-50",
           on: {
             click: function($event) {
               $event.stopPropagation()
@@ -79224,6 +79247,104 @@ var render = function() {
                           )
                         ])
                       : !_vm.$v.list.startMoney.minlength
+                        ? _c("span", { staticClass: "md-error" }, [
+                            _vm._v("Helytelen érték")
+                          ])
+                        : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "md-field",
+                { class: _vm.getValidationClass("finishMoney") },
+                [
+                  _c("label", { attrs: { for: "finish-money" } }, [
+                    _vm._v("Cél tőke")
+                  ]),
+                  _vm._v(" "),
+                  _c("md-input", {
+                    attrs: {
+                      name: "start-money",
+                      id: "finish-money",
+                      autocomplete: "given-name",
+                      disabled: _vm.sending,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.list.finishMoney,
+                      callback: function($$v) {
+                        _vm.$set(_vm.list, "finishMoney", $$v)
+                      },
+                      expression: "list.finishMoney"
+                    }
+                  }),
+                  _vm._v(" "),
+                  !_vm.$v.list.finishMoney.required
+                    ? _c("span", { staticClass: "md-error" }, [
+                        _vm._v("Kötelező mező!")
+                      ])
+                    : !_vm.$v.list.finishMoney.between
+                      ? _c("span", { staticClass: "md-error" }, [
+                          _vm._v(
+                            "A " +
+                              _vm._s(
+                                _vm.$v.list.finishMoney.$params.between.min
+                              ) +
+                              " és " +
+                              _vm._s(
+                                _vm.$v.list.finishMoney.$params.between.max
+                              ) +
+                              " közötti érték lehetséges!"
+                          )
+                        ])
+                      : !_vm.$v.list.finishMoney.minlength
+                        ? _c("span", { staticClass: "md-error" }, [
+                            _vm._v("Helytelen érték")
+                          ])
+                        : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "md-field",
+                { class: _vm.getValidationClass("odds") },
+                [
+                  _c("label", { attrs: { for: "odds" } }, [_vm._v("Szorzó")]),
+                  _vm._v(" "),
+                  _c("md-input", {
+                    attrs: {
+                      name: "odds",
+                      id: "odds",
+                      autocomplete: "given-name",
+                      disabled: _vm.sending,
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.list.odds,
+                      callback: function($$v) {
+                        _vm.$set(_vm.list, "odds", $$v)
+                      },
+                      expression: "list.odds"
+                    }
+                  }),
+                  _vm._v(" "),
+                  !_vm.$v.list.odds.required
+                    ? _c("span", { staticClass: "md-error" }, [
+                        _vm._v("Kötelező mező!")
+                      ])
+                    : !_vm.$v.list.odds.between
+                      ? _c("span", { staticClass: "md-error" }, [
+                          _vm._v(
+                            "A " +
+                              _vm._s(_vm.$v.list.odds.$params.between.min) +
+                              " és " +
+                              _vm._s(_vm.$v.list.odds.$params.between.max) +
+                              " közötti érték lehetséges!"
+                          )
+                        ])
+                      : !_vm.$v.list.odds.minlength
                         ? _c("span", { staticClass: "md-error" }, [
                             _vm._v("Helytelen érték")
                           ])
