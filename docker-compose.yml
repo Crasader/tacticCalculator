@@ -9,14 +9,14 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_USER: root
-      PMA_PASSWORD: laravel
+      PMA_PASSWORD: tactic
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: laravel
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: tactic
+      MYSQL_DATABASE: tactic
+      MYSQL_USER: tactic
+      MYSQL_PASSWORD: tactic
   node:
     build: _docker/node
     command: "npm"
