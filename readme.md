@@ -1,11 +1,16 @@
-# Tactical Calculator
+# Tactical Calculator v0.2
 
-## How to install
+### How to install
 
-* docker-compos up -d --build <--- docker container building and run (mysql, apache+config, npm) containers.
-* ./helpers/rebuild-site.sh <--- remove logs, rebuild data, run migrations and seeds.
-* ./helpers/npm run watch <--- run scss and vue builder if you want developing the code.
+* docker-compose up -d --build <--- docker container building and run (mysql, apache+config, npm) containers.
+* ./helpers/rebuild-site.sh <--- remove logs, rebuild data, run artisan migrations and seeds.
 
-If everything went successfull, then 
+If everything well run, the site will be available on localhost and 8080 port:
 *http://localhost:8080*, 
-when the page is available.
+
+### The structure of project
+The project is builds up by Docker. This project has 3 container: mysql, web and npm.
+
+- BackEnd - Laravel 5.6,
+- FrontEnd - blade template and VueJS 2.5.7
+- Style formatting - SCSS
