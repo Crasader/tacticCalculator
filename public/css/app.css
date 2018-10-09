@@ -267,3 +267,7 @@ body {
   margin-top: 20px;
 }
 
+#cssmenu > ul > li > a:after {
+  border-color: white;
+}
+
