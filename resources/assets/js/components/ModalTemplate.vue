@@ -34,6 +34,7 @@
             </div>
 
             <snackbar ref="snackbar"></snackbar>
+            <loader ref="loader"></loader>
         </div>
     </div>
 </template>
@@ -41,10 +42,11 @@
 <script>
     import { validationMixin } from 'vuelidate'
     import { Snackbar } from './Snackbar.vue'
+    import { Loader } from './Loader.vue'
     import { required, minLength, maxLength, between } from 'vuelidate/lib/validators'
 
     export default {
-        components: Snackbar,
+        components: Snackbar, Loader,
         props: ['show', 'fullData'],
         mixins: [validationMixin],
         data: () => ({
@@ -78,7 +80,6 @@
         methods: {
             getValidationClass (fieldName) {
                 const field = this.$v.list[fieldName]
-
                 if (field) {
                     return {
                         'md-invalid': field.$invalid && field.$dirty
@@ -89,22 +90,10 @@
                 this.$v.$reset()
                 this.list.startMoney = null
             },
-            saveUser () {
-                // this.sending = true
-                //
-                // // Instead of this timeout, here you can call your API
-                // window.setTimeout(() => {
-                //     this.lastUser = `${this.list.startMoney} ${this.list.lastName}`
-                //     this.userSaved = true
-                //     this.sending = false
-                //     this.clearForm()
-                // }, 1500)
-            },
             validateUser () {
                 this.$v.$touch()
-
                 if (!this.$v.$invalid) {
-                    this.saveUser()
+                    this.savePost()
                 }
             },
             close: function () {
@@ -116,22 +105,38 @@
                         this.close();
                     }
                 });
-            }
+            },
+            savePost: function () {
+                this.$refs.loader.show();
+                axios.patch('/api/basic-data/' + this.fullData.id, {
+                    'data': {
+                        'id': this.fullData.id,
+                        'type': this.fullData.type,
+                        'attributes': {
+                            'startMoney': this.list.startMoney,
+                            'finishMoney': this.list.finishMoney,
+                            'odds': this.list.odds
+                        }
+                    }
+                })
+                .then((response) => {
+                    this.$refs.loader.hide();
+                    this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
+                    this.$emit('refresh', response.data.value);
+                    this.close();
+                })
+                .catch((error) => {
+                    let message = "Hiba: " + error.message;
+                    this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                });
+            },
         },
         mounted: function () {
             //mounted data from backend
             this.list = JSON.parse(this.fullData.value)
-            // var list = {};
-            // $.each(this.fullDataValue, function (key, value) {
-            //
-            //     list.push({key: value});
-            // });
-            // this.list.startMoney = this.fullDataValue.startMoney;
-            // console.log(this.fullDataValue);
-            // console.log(this.list);
             this.closeModalListener();
-            //let product = "balbal";
-            //this.$emit('clicked-show-detail', product);
+            let product = "balbal";
+            this.$emit('clicked-show-detail', product);
         }
     }
 </script>
