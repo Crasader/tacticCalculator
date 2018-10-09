@@ -7,8 +7,7 @@
             <div class="modal-body">
                 <label class="form-label">
                     Induló tőke
-                    <input type="text" class="form-control" v-model="list.startMoney">
-                    <md-tooltip md-direction="top">Top</md-tooltip>
+                    <input type="number" class="form-control" v-model="list.startMoney">
                 </label>
                 <label class="form-label">
                     Cél tőke
@@ -20,7 +19,7 @@
                 </label>
             </div>
             <div class="modal-footer text-right">
-                <button class="modal-default-button green button" @click="savePost()">
+                <button class="modal-default-button green button" @click="checkForm">
                     Mentés
                 </button>
             </div>
@@ -32,7 +31,6 @@
 </template>
 <script>
     import { Snackbar } from './Snackbar.vue';
-
     export default {
         components: Snackbar,
         props: ['show', 'fullData'],
@@ -43,6 +41,18 @@
             };
         },
         methods: {
+            checkForm: function (e) {
+                let success = true;
+                if(!this.list.startMoney || !this.list.finishMoney || !this.list.odds) {
+                    success = false;
+                    return console.log("üres");
+                }
+                console.log(this.list.odds*1);
+                if(this.list.odds*1 > 2.2 || this.list.odds*1 < 1.6) {
+                    return console.log("tul nagy occ")
+                }
+
+            },
             savePost: function () {
                 axios.patch('/api/basic-data/' + this.fullData.id, {
                     'data': {
