@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "TacticalCalculator",
+    "description": "This is the tactical calculator for football mixers.",
+    "keywords": ["framework", "laravel", "tactic", "calcute"],
     "license": "MIT",
     "type": "project",
     "require": {

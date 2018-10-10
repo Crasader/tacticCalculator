@@ -13,4 +13,4 @@ The project is builds up by Docker. This project has 3 container: mysql, web and
 
 - BackEnd - Laravel 5.6,
 - FrontEnd - blade template and VueJS 2.5.7
-- Style formatting - SCSS
+- Style formatting - SCSS and Bootstrap

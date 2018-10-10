@@ -4,6 +4,7 @@
 // Variables
 @import 'variables';
 @import 'header';
+@import 'loader';
 
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
@@ -95,13 +96,24 @@ body {
   transform: scale(1.1);
 }
 
-.blue {background-color: $blue;} /* Blue */
-.blue:hover {
-  background-color: #2484d2;
+.blue {
+  background-color: $blue;
+  &:hover {
+    background-color: #2484d2;
+  }
+  &:active {
+    background-color: #2076bd;
+  }
 }
-.green { background-color: $green; }
-.green:hover {
-  background-color: #32ad66;
+
+.green {
+  background-color: $green;
+  &:hover {
+    background-color: #32ad66;
+  }
+  &:active {
+    background-color: #2d9b5b;
+  }
 }
 
 .button {

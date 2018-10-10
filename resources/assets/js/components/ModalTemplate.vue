@@ -1,49 +1,113 @@
 <template>
     <div class="modal-mask" @click="close" v-show="show">
-        <div class="modal-container" @click.stop>
+        <div class="modal-container w-50" @click.stop>
             <div class="modal-header">
                 <h3>Alap adatok módosítása</h3>
             </div>
             <div class="modal-body">
-                <label class="form-label">
-                    Induló tőke
-                    <input type="text" class="form-control" v-model="list.startMoney">
-                    <md-tooltip md-direction="top">Top</md-tooltip>
-                </label>
-                <label class="form-label">
-                    Cél tőke
-                    <input type="number" v-model="list.finishMoney" class="form-control" placeholder="finishMoney">
-                </label>
-                <label class="form-label">
-                    Szorzó
-                    <input type="number" v-model="list.odds" class="form-control" placeholder="odds">
-                </label>
+                <md-field :class="getValidationClass('startMoney')" >
+                    <label for="start-money">Induló tőke</label>
+                    <md-input name="start-money" id="start-money" autocomplete="given-name" v-model="list.startMoney" :disabled="sending" required/>
+                    <span class="md-error" v-if="!$v.list.startMoney.required">Kötelező mező!</span>
+                    <span class="md-error" v-else-if="!$v.list.startMoney.between">A {{$v.list.startMoney.$params.between.min}} és {{$v.list.startMoney.$params.between.max}} közötti érték lehetséges!</span>
+                    <span class="md-error" v-else-if="!$v.list.startMoney.minlength">Helytelen érték</span>
+                </md-field>
+                <md-field :class="getValidationClass('finishMoney')" >
+                    <label for="finish-money">Cél tőke</label>
+                    <md-input name="start-money" id="finish-money" autocomplete="given-name" v-model="list.finishMoney" :disabled="sending" required/>
+                    <span class="md-error" v-if="!$v.list.finishMoney.required">Kötelező mező!</span>
+                    <span class="md-error" v-else-if="!$v.list.finishMoney.between">A {{$v.list.finishMoney.$params.between.min}} és {{$v.list.finishMoney.$params.between.max}} közötti érték lehetséges!</span>
+                    <span class="md-error" v-else-if="!$v.list.finishMoney.minlength">Helytelen érték</span>
+                </md-field>
+                <md-field :class="getValidationClass('odds')" >
+                    <label for="odds">Szorzó</label>
+                    <md-input name="odds" id="odds" autocomplete="given-name" v-model="list.odds" :disabled="sending" required/>
+                    <span class="md-error" v-if="!$v.list.odds.required">Kötelező mező!</span>
+                    <span class="md-error" v-else-if="!$v.list.odds.between">A {{$v.list.odds.$params.between.min}} és {{$v.list.odds.$params.between.max}} közötti érték lehetséges!</span>
+                    <span class="md-error" v-else-if="!$v.list.odds.minlength">Helytelen érték</span>
+                </md-field>
             </div>
             <div class="modal-footer text-right">
-                <button class="modal-default-button green button" @click="savePost()">
+                <button class="modal-default-button green button" @click="validateUser">
                     Mentés
                 </button>
             </div>
 
             <snackbar ref="snackbar"></snackbar>
+            <loader ref="loader"></loader>
         </div>
-
     </div>
 </template>
+
 <script>
-    import { Snackbar } from './Snackbar.vue';
+    import { validationMixin } from 'vuelidate'
+    import { Snackbar } from './Snackbar.vue'
+    import { Loader } from './Loader.vue'
+    import { required, minLength, maxLength, between } from 'vuelidate/lib/validators'
 
     export default {
-        components: Snackbar,
+        components: Snackbar, Loader,
         props: ['show', 'fullData'],
-        data: function () {
-            return {
-                list: [],
-                fullDataValue: JSON.parse(this.fullData.value),
-            };
+        mixins: [validationMixin],
+        data: () => ({
+            list: {
+                startMoney: null,
+                finishMoney: null,
+                odds: null
+            },
+            sending: false,
+        }),
+        validations: {
+            list: {
+                startMoney: {
+                    required,
+                    minLength: minLength(2),
+                    maxLength: maxLength(10),
+                    between: between(500, 50000)
+                },
+                finishMoney: {
+                    required,
+                    minLength: minLength(2),
+                    maxLength: maxLength(10),
+                    between: between(500, 50000)
+                },
+                odds: {
+                    required,
+                    between: between(0.5, 2.01)
+                },
+            }
         },
         methods: {
+            getValidationClass (fieldName) {
+                const field = this.$v.list[fieldName]
+                if (field) {
+                    return {
+                        'md-invalid': field.$invalid && field.$dirty
+                    }
+                }
+            },
+            clearForm () {
+                this.$v.$reset()
+                this.list.startMoney = null
+            },
+            validateUser () {
+                this.$v.$touch()
+                if (!this.$v.$invalid) {
+                    this.savePost()
+                }
+            },
+            close: function () {
+                this.$emit('close');
+            },
+            closeModalListener: function () {
+                document.addEventListener("keydown", (e) => {
+                    if (this.show && e.keyCode == 27) {
+                        this.close();
+                    }
+                });
+            },
             savePost: function () {
+                this.$refs.loader.show();
                 axios.patch('/api/basic-data/' + this.fullData.id, {
                     'data': {
                         'id': this.fullData.id,
@@ -56,6 +120,7 @@
                     }
                 })
                 .then((response) => {
+                    this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
                     this.$emit('refresh', response.data.value);
                     this.close();
@@ -65,38 +130,16 @@
                     this.$refs.snackbar.openSnackbar(message, "danger", 6000);
                 });
             },
-            close: function () {
-                this.$emit('close');
-            },
-            closeModalListener: function () {
-                document.addEventListener("keydown", (e) => {
-                    if (this.show && e.keyCode == 27) {
-                        this.close();
-                    }
-                });
-            }
         },
         mounted: function () {
             //mounted data from backend
-            let list = [];
-            $.each(this.fullDataValue, function (key, value) {
-                list[key] = value;
-            });
-            this.list = list;
+            this.list = JSON.parse(this.fullData.value)
             this.closeModalListener();
             let product = "balbal";
             this.$emit('clicked-show-detail', product);
-
         }
     }
 </script>
 
-<style>
-    .modal-mask {
-        text-align: left;
-    }
-    .modal-container {
-        margin-top: 15%;
-        width: 380px;
-    }
+<style lang="scss" scoped>
 </style>
