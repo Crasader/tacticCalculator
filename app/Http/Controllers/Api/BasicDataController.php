@@ -10,7 +10,6 @@ use App\Transformers\Fractal;
 use App\Transformers\ResourceTransformerInterface;
 use Illuminate\Http\Request;
 use League\Fractal\Serializer\ArraySerializer;
-use League\Fractal\Serializer\JsonApiSerializer;
 
 class BasicDataController extends BaseResourceController
 {
@@ -25,10 +24,11 @@ class BasicDataController extends BaseResourceController
 
     public function index(Request $request)
     {
-        return $this->fractal->collection(
-                    $this->repository->getAll(),
-                    $this->getTransformer()
-                );
+        return $this->fractal->collection
+        (
+                $this->repository->getAll(),
+                $this->getTransformer()
+        );
     }
 
     public function update(PatchRequest $request, $id)

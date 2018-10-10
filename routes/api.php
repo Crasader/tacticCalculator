@@ -24,3 +24,10 @@ Route::resource('basic-data', 'Api\BasicDataController', [
         'update' => 'api.basic-data.update',
     ],
 ]);
+
+Route::resource('tactic-data', 'Api\TacticDataController', [
+    'only' => ['index'],
+    'names' => [
+        'index' => 'api.basic-data.index',
+    ],
+]);

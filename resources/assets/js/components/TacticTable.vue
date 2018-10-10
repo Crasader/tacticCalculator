@@ -50,26 +50,29 @@
         methods: {
             runTactic: function() {
                 this.$refs.loader.show();
-                axios.get('/api/basic-data')
+                axios.get('/api/tactic-data')
                 .then(response => {
-                    console.log(response.data)
-                    //this.$refs.loader.hide();
-
+                    this.$refs.loader.hide();
+                    console.log(response.data);
+                    this.data = response.data;
+                    this.donutData = this.getDonutData(response.data);
                 })
                 .catch((error) => {
                     let message = "Hiba: " + error.message;
                     this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar(message, "danger", 6000);
                 });
+            },
+            getDonutData: function (value) {
+                return this.donutData = [
+                    { label: 'Győzelem', value: value['win'] },
+                    { label: 'Vereség', value: value['lost'] },
+                ];
             }
         },
         mounted () {
             this.data = JSON.parse(this.tacticData);
-            this.donutData = [
-                { label: 'Győzelem', value: this.data['win'] },
-                { label: 'Vereség', value: this.data['lost'] },
-            ];
-            console.log(this.data);
+            this.donutData = this.getDonutData(this.data);
         }
     }
 </script>

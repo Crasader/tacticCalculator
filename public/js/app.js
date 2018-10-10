@@ -81462,7 +81462,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -81537,20 +81537,24 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
             var _this = this;
 
             this.$refs.loader.show();
-            axios.get('/api/basic-data').then(function (response) {
+            axios.get('/api/tactic-data').then(function (response) {
+                _this.$refs.loader.hide();
                 console.log(response.data);
-                //this.$refs.loader.hide();
+                _this.data = response.data;
+                _this.donutData = _this.getDonutData(response.data);
             }).catch(function (error) {
                 var message = "Hiba: " + error.message;
                 _this.$refs.loader.hide();
                 _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
             });
+        },
+        getDonutData: function getDonutData(value) {
+            return this.donutData = [{ label: 'Győzelem', value: value['win'] }, { label: 'Vereség', value: value['lost'] }];
         }
     },
     mounted: function mounted() {
         this.data = JSON.parse(this.tacticData);
-        this.donutData = [{ label: 'Győzelem', value: this.data['win'] }, { label: 'Vereség', value: this.data['lost'] }];
-        console.log(this.data);
+        this.donutData = this.getDonutData(this.data);
     }
 });
 
