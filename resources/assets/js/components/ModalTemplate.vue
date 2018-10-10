@@ -7,21 +7,21 @@
             <div class="modal-body">
                 <md-field :class="getValidationClass('startMoney')" >
                     <label for="start-money">Induló tőke</label>
-                    <md-input name="start-money" id="start-money" autocomplete="given-name" v-model="list.startMoney" :disabled="sending" required/>
+                    <md-input type="number" name="start-money" id="start-money" autocomplete="given-name" v-model="list.startMoney" :disabled="sending" required/>
                     <span class="md-error" v-if="!$v.list.startMoney.required">Kötelező mező!</span>
                     <span class="md-error" v-else-if="!$v.list.startMoney.between">A {{$v.list.startMoney.$params.between.min}} és {{$v.list.startMoney.$params.between.max}} közötti érték lehetséges!</span>
                     <span class="md-error" v-else-if="!$v.list.startMoney.minlength">Helytelen érték</span>
                 </md-field>
                 <md-field :class="getValidationClass('finishMoney')" >
                     <label for="finish-money">Cél tőke</label>
-                    <md-input name="start-money" id="finish-money" autocomplete="given-name" v-model="list.finishMoney" :disabled="sending" required/>
+                    <md-input type="number" name="start-money" id="finish-money" autocomplete="given-name" v-model="list.finishMoney" :disabled="sending" required/>
                     <span class="md-error" v-if="!$v.list.finishMoney.required">Kötelező mező!</span>
                     <span class="md-error" v-else-if="!$v.list.finishMoney.between">A {{$v.list.finishMoney.$params.between.min}} és {{$v.list.finishMoney.$params.between.max}} közötti érték lehetséges!</span>
                     <span class="md-error" v-else-if="!$v.list.finishMoney.minlength">Helytelen érték</span>
                 </md-field>
                 <md-field :class="getValidationClass('odds')" >
                     <label for="odds">Szorzó</label>
-                    <md-input name="odds" id="odds" autocomplete="given-name" v-model="list.odds" :disabled="sending" required/>
+                    <md-input step="0.01" type="number" name="odds" id="odds" autocomplete="given-name" v-model="list.odds" :disabled="sending" required/>
                     <span class="md-error" v-if="!$v.list.odds.required">Kötelező mező!</span>
                     <span class="md-error" v-else-if="!$v.list.odds.between">A {{$v.list.odds.$params.between.min}} és {{$v.list.odds.$params.between.max}} közötti érték lehetséges!</span>
                     <span class="md-error" v-else-if="!$v.list.odds.minlength">Helytelen érték</span>
@@ -41,12 +41,12 @@
 
 <script>
     import { validationMixin } from 'vuelidate'
-    import { Snackbar } from './Snackbar.vue'
-    import { Loader } from './Loader.vue'
+    import Snackbar from './Snackbar'
+    import Loader from './Loader'
     import { required, minLength, maxLength, between } from 'vuelidate/lib/validators'
 
     export default {
-        components: Snackbar, Loader,
+        components: { Snackbar, Loader },
         props: ['show', 'fullData'],
         mixins: [validationMixin],
         data: () => ({

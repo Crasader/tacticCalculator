@@ -17,9 +17,10 @@ window.Vue = require('vue');
 
 Vue.component('modal-template', require('./components/ModalTemplate.vue'));
 Vue.component('basic-table', require('./components/BasicTable.vue'));
+Vue.component('tactic-table', require('./components/TacticTable.vue'));
 Vue.component('snackbar', require('./components/Snackbar.vue'));
 Vue.component('loader', require('./components/Loader.vue'));
-
+Vue.component('donut', require('./components/charts/Donut.vue'));
 
 const app = new Vue({
     el: '#app'

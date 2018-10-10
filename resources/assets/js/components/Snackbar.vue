@@ -45,4 +45,7 @@
         background-color: #FDF8E4;
         color: #8D6D40;
     }
+    .md-button.md-theme-default.md-primary {
+        color: white;
+    }
 </style>
