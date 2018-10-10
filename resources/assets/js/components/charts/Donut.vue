@@ -19,8 +19,11 @@
         name: 'Donut',
         data: function () {
             return {
-
+                data: []
             }
+        },
+        mounted: function () {
+            console.log(this.donutData);
         }
     }
 </script>

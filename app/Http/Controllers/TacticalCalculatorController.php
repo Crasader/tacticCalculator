@@ -156,14 +156,14 @@ class TacticalCalculatorController extends Controller
             //$("div#sumRound").html(lost+win);
         }
 
-
         $endTime = $this->milliseconds();
+
+        $case['proportion'] = round(($case['win'] / $case['lost'])*100, 3) . '%';
+        $case['runtime'] = ($endTime-$startTime)/1000 . ' s';
+
         return view('tactic', ['data' => [
             'basicData' => json_encode($basicData['data'][0]),
-            'lostRound' => $case['lost'],
-            'winRound' => $case['win'],
-            'proportion' => round(($case['win'] / $case['lost'])*100, 3) . '%',
-           // 'runTime' => ($endTime-$startTime)/1000 . ' s'
+            'tacticData' => json_encode($case),
         ]]);
     }
     

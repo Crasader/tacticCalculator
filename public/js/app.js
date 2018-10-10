@@ -81462,7 +81462,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -81477,8 +81477,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_material___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_material__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__charts_Donut__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__charts_Donut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__charts_Donut__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Snackbar__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Snackbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Snackbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Loader__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Loader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__charts_Donut__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__charts_Donut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__charts_Donut__);
 //
 //
 //
@@ -81500,6 +81504,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -81508,15 +81523,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { Donut: __WEBPACK_IMPORTED_MODULE_2__charts_Donut___default.a },
+    components: { Donut: __WEBPACK_IMPORTED_MODULE_4__charts_Donut___default.a, Snackbar: __WEBPACK_IMPORTED_MODULE_2__Snackbar___default.a, Loader: __WEBPACK_IMPORTED_MODULE_3__Loader___default.a },
+    props: ['tacticData'],
     name: 'TacticTable',
     data: function data() {
         return {
-            donutData: [{ label: 'Red', value: 10 }, { label: 'Blue', value: 50 }, { label: 'Yellow', value: 100 }]
+            donutData: [],
+            data: []
         };
     },
-    methods: {},
-    mounted: function mounted() {}
+    methods: {
+        runTactic: function runTactic() {
+            var _this = this;
+
+            this.$refs.loader.show();
+            axios.get('/api/basic-data').then(function (response) {
+                console.log(response.data);
+                //this.$refs.loader.hide();
+            }).catch(function (error) {
+                var message = "Hiba: " + error.message;
+                _this.$refs.loader.hide();
+                _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.data = JSON.parse(this.tacticData);
+        this.donutData = [{ label: 'Győzelem', value: this.data['win'] }, { label: 'Vereség', value: this.data['lost'] }];
+        console.log(this.data);
+    }
 });
 
 /***/ }),
@@ -81542,17 +81577,53 @@ var render = function() {
                 _c("h1", { staticClass: "md-title" }, [
                   _vm._v("Taktikai futtatás")
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "md-table-row",
+                [
+                  _c("md-table-cell", [
+                    _vm._v("Arány: " + _vm._s(_vm.data.proportion))
+                  ]),
+                  _vm._v(" "),
+                  _c("md-table-cell", [
+                    _vm._v("Futási idő: " + _vm._s(_vm.data.runtime))
+                  ]),
+                  _vm._v(" "),
+                  _c("md-table-cell", [
+                    _vm._v("Győzelem: " + _vm._s(_vm.data.win))
+                  ]),
+                  _vm._v(" "),
+                  _c("md-table-cell", [
+                    _vm._v("Vereség: " + _vm._s(_vm.data.lost))
+                  ])
+                ],
+                1
+              )
             ],
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "basic-table-buttons" }),
+          _c("div", { staticClass: "basic-table-buttons" }, [
+            _c(
+              "button",
+              {
+                staticClass: "button blue",
+                attrs: { id: "show" },
+                on: { click: _vm.runTactic }
+              },
+              [_vm._v("Futtatás")]
+            )
+          ]),
           _vm._v(" "),
           _c("donut", { attrs: { donutData: _vm.donutData } })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("snackbar", { ref: "snackbar" }),
+      _vm._v(" "),
+      _c("loader", { ref: "loader" })
     ],
     1
   )
@@ -90029,7 +90100,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90064,7 +90135,12 @@ global.Raphael = __WEBPACK_IMPORTED_MODULE_0_raphael_raphael___default.a;
     props: ['donutData'],
     name: 'Donut',
     data: function data() {
-        return {};
+        return {
+            data: []
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.donutData);
     }
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
