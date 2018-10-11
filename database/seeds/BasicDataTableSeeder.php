@@ -14,7 +14,8 @@ class BasicDataTableSeeder extends Seeder
     const BASIC_DATA = [
         'startMoney' => '10000',
         'finishMoney' => '30000',
-        'odds' => '1.83'
+        'odds' => '1.83',
+        'rounds' => '100'
     ];
 
     /**

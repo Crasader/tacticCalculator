@@ -24,7 +24,12 @@
                     <md-input step="0.01" type="number" name="odds" id="odds" autocomplete="given-name" v-model="list.odds" :disabled="sending" required/>
                     <span class="md-error" v-if="!$v.list.odds.required">Kötelező mező!</span>
                     <span class="md-error" v-else-if="!$v.list.odds.between">A {{$v.list.odds.$params.between.min}} és {{$v.list.odds.$params.between.max}} közötti érték lehetséges!</span>
-                    <span class="md-error" v-else-if="!$v.list.odds.minlength">Helytelen érték</span>
+                </md-field>
+                <md-field :class="getValidationClass('rounds')" >
+                    <label for="odds">Körök</label>
+                    <md-input step="1" type="number" name="rounds" id="round" autocomplete="given-name" v-model="list.rounds" :disabled="sending" required/>
+                    <span class="md-error" v-if="!$v.list.rounds.required">Kötelező mező!</span>
+                    <span class="md-error" v-else-if="!$v.list.rounds.between">A {{$v.list.rounds.$params.between.min}} és {{$v.list.rounds.$params.between.max}} közötti érték lehetséges!</span>
                 </md-field>
             </div>
             <div class="modal-footer text-right">
@@ -75,6 +80,10 @@
                     required,
                     between: between(0.5, 2.01)
                 },
+                rounds: {
+                    required,
+                    between: between(1, 1000)
+                },
             }
         },
         methods: {
@@ -115,7 +124,8 @@
                         'attributes': {
                             'startMoney': this.list.startMoney,
                             'finishMoney': this.list.finishMoney,
-                            'odds': this.list.odds
+                            'odds': this.list.odds,
+                            'rounds': this.list.rounds,
                         }
                     }
                 })

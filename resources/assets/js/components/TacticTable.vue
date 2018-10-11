@@ -6,6 +6,9 @@
                     <h1 class="md-title">Taktikai futtatás</h1>
                 </md-table-toolbar>
                 <md-table-row>
+                    <md-table-head></md-table-head>
+                </md-table-row>
+                <md-table-row>
                     <md-table-cell>Arány: {{ data.proportion }}</md-table-cell>
                     <md-table-cell>Futási idő: {{ data.runtime }}</md-table-cell>
                     <md-table-cell>Győzelem: {{ data.win }}</md-table-cell>
@@ -65,8 +68,8 @@
             },
             getDonutData: function (value) {
                 return this.donutData = [
-                    { label: 'Győzelem', value: value['win'] },
                     { label: 'Vereség', value: value['lost'] },
+                    { label: 'Győzelem', value: value['win'] },
                 ];
             }
         },

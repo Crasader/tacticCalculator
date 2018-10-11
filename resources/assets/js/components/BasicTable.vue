@@ -62,6 +62,7 @@
 <style>
 .basic-table {
     margin: auto;
+    margin-left: 30px;
     vertical-align: top;
 }
 .basic-table-buttons {
