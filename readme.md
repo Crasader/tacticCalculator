@@ -1,11 +1,18 @@
 # Tactical Calculator v0.2
 
+### Dependencies
+* PHP 7.2.11 (cli)
+* Composer version 1.7.2
+
 ### How to install
+* docker-compose up -d --build <-- docker container building and run (mysql, apache+config, npm) containers.
+* copy and paste .env.ci file, rename to .env.
+* ./helpers/artisan key:generate <-- generate unique app key for better security.
+* ./shell.sh composer dump-autoload <-- generate autoload files.
+* ./helpers/rebuild-site.sh <-- remove logs, rebuild data, run artisan migrations and seeds.
+* ./helpers/npm run dev <-- build vue componenets
 
-* docker-compose up -d --build <--- docker container building and run (mysql, apache+config, npm) containers.
-* ./helpers/rebuild-site.sh <--- remove logs, rebuild data, run artisan migrations and seeds.
-
-If everything well run, the site will be available on localhost and 8080 port:
+If everything well run, the site will be available on *localhost* and *8080* port:
 *http://localhost:8080*, 
 
 ### The structure of project
