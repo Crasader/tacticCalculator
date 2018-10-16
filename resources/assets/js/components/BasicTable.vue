@@ -50,11 +50,6 @@
         },
         mounted () {
             this.fullDataValue = JSON.parse(this.fullData.value);
-            // axios
-            //     .get('http://localhost/api/basic-data')
-            //     .then(response =>
-            //         { console.log(response.data) }
-            //     );
         }
     }
 </script>

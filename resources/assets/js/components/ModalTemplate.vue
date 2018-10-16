@@ -130,7 +130,6 @@
                     }
                 })
                 .then((response) => {
-                    this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
                     this.$emit('refresh', response.data.value);
                     this.close();
@@ -139,6 +138,7 @@
                     let message = "Hiba: " + error.message;
                     this.$refs.snackbar.openSnackbar(message, "danger", 6000);
                 });
+                this.$refs.loader.hide();
             },
         },
         mounted: function () {

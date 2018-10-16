@@ -55,16 +55,14 @@
                 this.$refs.loader.show();
                 axios.get('/api/tactic-data')
                 .then(response => {
-                    this.$refs.loader.hide();
-                    console.log(response.data);
                     this.data = response.data;
                     this.donutData = this.getDonutData(response.data);
                 })
                 .catch((error) => {
                     let message = "Hiba: " + error.message;
-                    this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar(message, "danger", 6000);
                 });
+                this.$refs.loader.hide();
             },
             getDonutData: function (value) {
                 return this.donutData = [
