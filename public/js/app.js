@@ -78558,11 +78558,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
                 _this2.$emit('refresh', response.data.value);
                 _this2.close();
+                _this2.$refs.loader.hide();
             }).catch(function (error) {
+                _this2.$refs.loader.hide();
                 var message = "Hiba: " + error.message;
                 _this2.$refs.snackbar.openSnackbar(message, "danger", 6000);
             });
-            this.$refs.loader.hide();
         }
     },
     mounted: function mounted() {
@@ -81513,7 +81514,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -81594,11 +81595,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
             axios.get('/api/tactic-data').then(function (response) {
                 _this.data = response.data;
                 _this.donutData = _this.getDonutData(response.data);
+                _this.$refs.loader.hide();
             }).catch(function (error) {
                 var message = "Hiba: " + error.message;
                 _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                _this.$refs.loader.hide();
             });
-            this.$refs.loader.hide();
         },
         getDonutData: function getDonutData(value) {
             return this.donutData = [{ label: 'Vereség', value: value['lost'] }, { label: 'Győzelem', value: value['win'] }];

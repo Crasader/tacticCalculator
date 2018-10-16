@@ -57,12 +57,13 @@
                 .then(response => {
                     this.data = response.data;
                     this.donutData = this.getDonutData(response.data);
+                    this.$refs.loader.hide();
                 })
                 .catch((error) => {
                     let message = "Hiba: " + error.message;
                     this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                    this.$refs.loader.hide();
                 });
-                this.$refs.loader.hide();
             },
             getDonutData: function (value) {
                 return this.donutData = [
