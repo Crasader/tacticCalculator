@@ -10,7 +10,7 @@ echo "Rebuild NPM ..."
 ./helpers/npm install
 
 echo "Migrate fresh and db:seed ..."
-./helpers/artisan migrate:fresh
+./helpers/artisan migrate:refresh
 ./helpers/artisan db:seed
 
 echo "Building frontend components ..."

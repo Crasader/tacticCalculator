@@ -17,3 +17,7 @@ The project is builds up by Docker. This project has 3 container: mysql, web and
 - BackEnd - Laravel 5.6,
 - FrontEnd - blade template and VueJS 2.5.7
 - Style formatting - SCSS and Bootstrap
+
+### Helper scripts
+
+* ./helpers/rebuild-site.sh <-- NPM reinstall, migrate and dbseed refresh.
