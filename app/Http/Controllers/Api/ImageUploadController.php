@@ -20,10 +20,14 @@ class ImageUploadController extends BaseResourceController
     public function store(Request $request)
     {
         $input = $request->input();
-        $attributes = ['value' => json_encode($input['data']['attributes'])];
-        dd();
-        //$updated = $this->repository->update($id, $attributes);
-        return null;//$this->getUpdateResponse($updated);
+        $image = str_replace('data:image/png;base64,', '', $input['data']['attributes']['image']);
+        $image = str_replace(' ', '+', $image);
+        $imageName = str_random(10).'.'.'png';
+        \File::put(storage_path(). '/app/public/' . $imageName, base64_decode($image));
+        return response()->json([
+            'status' => 200,
+            'value' => 'Sikeres feltöltés!'
+        ]);
     }
 
     protected function getTransformer(): ResourceTransformerInterface

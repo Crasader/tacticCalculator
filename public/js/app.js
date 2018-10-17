@@ -90277,7 +90277,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.basic-table {\n    margin: auto;\n    margin-left: 30px;\n    vertical-align: top;\n}\n.basic-table-buttons {\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n.file-upload-form, .image-preview {\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n    padding: 20px;\n}\nimg.preview {\n    background-color: white;\n    padding: 5px;\n    height: 148px;\n    margin: auto;\n}\n.media-image {\n    border: 1px solid #DDD;\n    width: 200px;\n    height: 150px;\n    margin: auto;\n}\n.no-image {\n    background-image: url('/img/No_Image_Available.png');\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n}\n\n", ""]);
 
 // exports
 
@@ -90319,6 +90319,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -90331,36 +90337,45 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
     components: { Snackbar: __WEBPACK_IMPORTED_MODULE_2__Snackbar___default.a, Loader: __WEBPACK_IMPORTED_MODULE_3__Loader___default.a },
     data: function data() {
         return {
-            single: null,
-            selectedFile: null
+            imageData: ""
         };
     },
     methods: {
         onFileChanged: function onFileChanged(event) {
-            this.selectedFile = event.target.files[0];
-        },
-        onUpload: function onUpload() {
             var _this = this;
 
+            this.selectedFile = event.target.files[0];
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    _this.imageData = e.target.result;
+                    console.log(e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
+        onUpload: function onUpload() {
+            var _this2 = this;
+
             // upload file
+            this.$refs.loader.show();
             console.log(this.selectedFile);
-            //axios.post('api/image-upload', this.selectedFile);
             axios.post('/api/image-upload', {
                 'data': {
                     'type': 'image',
                     'attributes': {
-                        'image': "aaa" //json_encode(this.selectedFile)
+                        'image': this.imageData
                     }
                 }
             }).then(function (response) {
-                _this.$refs.snackbar.openSnackbar("Sikeres mentés!", "success");
-                _this.$emit('refresh', response.data.value);
-                _this.close();
-                _this.$refs.loader.hide();
+                _this2.$refs.loader.hide();
+                _this2.$refs.snackbar.openSnackbar(response.data.value, "success");
             }).catch(function (error) {
-                _this.$refs.loader.hide();
+                _this2.$refs.loader.hide();
                 var message = "Hiba: " + error.message;
-                _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                _this2.$refs.snackbar.openSnackbar(message, "danger", 6000);
             });
         }
     },
@@ -90398,6 +90413,17 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("md-field", { staticClass: "image-preview" }, [
+            _vm.imageData.length > 0
+              ? _c("div", { staticClass: "media-image" }, [
+                  _c("img", {
+                    staticClass: "preview",
+                    attrs: { src: _vm.imageData }
+                  })
+                ])
+              : _c("div", { staticClass: "media-image no-image" })
+          ]),
           _vm._v(" "),
           _c(
             "md-card-actions",
