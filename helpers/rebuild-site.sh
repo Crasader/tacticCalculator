@@ -6,12 +6,15 @@ rm -rf  storage/app/public/* || echo ""
 rm -rf  storage/app/temporary/* || echo ""
 rm -rf  node_modules || echo ""
 
-echo "NPM install ..."
+echo "Rebuild NPM ..."
 ./helpers/npm install
 
 echo "Migrate fresh and db:seed ..."
-./helpers/artisan migrate:fresh
+./helpers/artisan migrate:refresh
 ./helpers/artisan db:seed
+
+echo "Building frontend components ..."
+./helpers/npm run dev
 
 echo "Rebuild was successfully done."
 
