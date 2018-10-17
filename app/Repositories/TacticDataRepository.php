@@ -80,7 +80,6 @@ class TacticDataRepository extends BaseRepository
                         $lostNumber++;
                     }
                 }
-                $xx = 0;
             }
 
 
@@ -143,11 +142,19 @@ class TacticDataRepository extends BaseRepository
 
     private function getRatioBets($startMoney)
     {
-        //hanyados = [100, 45.45, 20.66, 9.39, 4.27, 1.94, 0.88];
+        //$hanyados = [150, 68.18, 30.99, 14.01, 6.41, 2.91, 1.22]; // 55%
 
-        $hanyados = [50, 22.7, 10.33, 4.7, 2.13, 1, 0.44]; // legjobb arány 50%os bejövési arány
 
-        //hanyados = [25.01, 10, 4.17, 1.6, 0.62, 0.28, 0.13];
+        //$hanyados = [110, 49.95, 23.18, 10.32, 4.69, 2.13, 0.96]; // 63%
+
+        //$hanyados = [100, 45.45, 20.66, 9.39, 4.27, 1.94, 0.88]; // 67%
+
+        //$hanyados = [90, 40.95, 18.06, 8.46, 3.85, 1.76, 0.80]; // előző - 10% -- 51%
+
+        $hanyados = [50, 22.7, 10.33, 4.7, 2.13, 1, 0.44]; // 65%
+        //$hanyados = [50, 22.7, 10.33, 4.7, 2.13, 1, 0.44]; //
+
+        //$hanyados = [25.01, 10, 4.17, 1.6, 0.62, 0.28, 0.13]; // 54%
         //bets = [60.24, 132.82, 292.84, 645.86, 1423.57, 3138.71, 6300, 13000];
 
         //bets =

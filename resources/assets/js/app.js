@@ -22,6 +22,9 @@ Vue.component('snackbar', require('./components/Snackbar.vue'));
 Vue.component('loader', require('./components/Loader.vue'));
 Vue.component('donut', require('./components/charts/Donut.vue'));
 
+Vue.component('media-component-upload', require('./components/media/Upload.vue'));
+Vue.component('media-component-list', require('./components/media/List.vue'));
+
 const app = new Vue({
     el: '#app'
 })

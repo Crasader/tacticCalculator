@@ -19,4 +19,5 @@ Route::get('/tactic', 'TacticalCalculatorController@index')->name('tactic');
 Route::get('/tactic-statistic', 'TacticalCalculatorController@index')->name('tactic-statistic');
 
 Route::get('/statistic', 'StatisticController@index')->name('statistic');
+Route::get('/medialibrary', 'MediaLibraryController@index')->name('media-library');
 Auth::routes();
