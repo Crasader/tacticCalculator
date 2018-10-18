@@ -10,10 +10,10 @@
                 <md-file @change="onFileChanged" accept="image/*" />
             </md-field>
             <md-field class="image-preview" >
-                <div class="media-image" v-if="imageData.length > 0">
+                <div class="media-image-upload" v-if="imageData.length > 0">
                     <img class="preview" :src="imageData">
                 </div>
-                <div v-else class="media-image no-image"></div>
+                <div v-else class="media-image-upload no-image"></div>
             </md-field>
             <md-card-actions>
                 <md-button class="md-raised" @click="onUpload">Feltöltés</md-button>
@@ -51,7 +51,6 @@
                         console.log(e.target.result);
 
                     }
-
                     reader.readAsDataURL(input.files[0]);
                 }
             },
@@ -70,6 +69,7 @@
                 .then((response) => {
                     this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar(response.data.value, "success");
+                    this.$emit('refresh');
                 })
                 .catch((error) => {
                     this.$refs.loader.hide();
@@ -95,10 +95,10 @@ img.preview {
     margin: auto;
 }
 
-.media-image {
+.media-image-upload {
     border: 1px solid #DDD;
-    width: 200px;
-    height: 150px;
+    width: 300px;
+    height: auto;
     margin: auto;
 }
 
@@ -107,6 +107,7 @@ img.preview {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    min-height: 200px;
 }
 
 </style>

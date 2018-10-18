@@ -90277,7 +90277,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.file-upload-form, .image-preview {\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n    padding: 20px;\n}\nimg.preview {\n    background-color: white;\n    padding: 5px;\n    height: 148px;\n    margin: auto;\n}\n.media-image {\n    border: 1px solid #DDD;\n    width: 200px;\n    height: 150px;\n    margin: auto;\n}\n.no-image {\n    background-image: url('/img/No_Image_Available.png');\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n}\n\n", ""]);
+exports.push([module.i, "\n.file-upload-form, .image-preview {\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n    padding: 20px;\n}\nimg.preview {\n    background-color: white;\n    padding: 5px;\n    height: 148px;\n    margin: auto;\n}\n.media-image-upload {\n    border: 1px solid #DDD;\n    width: 300px;\n    height: auto;\n    margin: auto;\n}\n.no-image {\n    background-image: url('/img/No_Image_Available.png');\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center;\n    min-height: 200px;\n}\n\n", ""]);
 
 // exports
 
@@ -90352,7 +90352,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
                     _this.imageData = e.target.result;
                     console.log(e.target.result);
                 };
-
                 reader.readAsDataURL(input.files[0]);
             }
         },
@@ -90372,6 +90371,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
             }).then(function (response) {
                 _this2.$refs.loader.hide();
                 _this2.$refs.snackbar.openSnackbar(response.data.value, "success");
+                _this2.$emit('refresh');
             }).catch(function (error) {
                 _this2.$refs.loader.hide();
                 var message = "Hiba: " + error.message;
@@ -90416,13 +90416,13 @@ var render = function() {
           _vm._v(" "),
           _c("md-field", { staticClass: "image-preview" }, [
             _vm.imageData.length > 0
-              ? _c("div", { staticClass: "media-image" }, [
+              ? _c("div", { staticClass: "media-image-upload" }, [
                   _c("img", {
                     staticClass: "preview",
                     attrs: { src: _vm.imageData }
                   })
                 ])
-              : _c("div", { staticClass: "media-image no-image" })
+              : _c("div", { staticClass: "media-image-upload no-image" })
           ]),
           _vm._v(" "),
           _c(
@@ -90549,7 +90549,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.basic-table {\n    margin: auto;\n    margin-left: 30px;\n    vertical-align: top;\n}\n.basic-table-buttons {\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n.mini-card {\n    height: 260px;\n    width: 45%;\n    margin: 12px;\n    display: inline-block;\n}\n.md-card-media img {\n    height: auto;\n    max-height: 200px;\n    width: auto;\n}\n", ""]);
 
 // exports
 
@@ -90564,6 +90564,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_material___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_material__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_material_dist_vue_material_min_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Snackbar__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Snackbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Snackbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Loader__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Loader__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90582,19 +90607,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_material___default.a);
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: { Snackbar: __WEBPACK_IMPORTED_MODULE_2__Snackbar___default.a, Loader: __WEBPACK_IMPORTED_MODULE_3__Loader___default.a },
     data: function data() {
         return {
-            single: null
+            images: []
         };
     },
     methods: {
-        onUpload: function onUpload() {
-            // upload file
-            console.log(this.single);
+        getImages: function getImages() {
+            var _this = this;
+
+            this.$refs.loader.show();
+            axios.get('/api/images').then(function (response) {
+                console.log(response.data);
+                _this.images = response.data;
+                _this.$refs.loader.hide();
+            }).catch(function (error) {
+                var message = "Hiba: " + error.message;
+                _this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                _this.$refs.loader.hide();
+            });
         }
     },
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.getImages();
+    }
 });
 
 /***/ }),
@@ -90616,10 +90657,61 @@ var render = function() {
             _c("h3", [_vm._v("Media List")])
           ]),
           _vm._v(" "),
-          _c("md-field")
+          _vm._l(_vm.images, function(image) {
+            return _c(
+              "md-card",
+              { staticClass: "mini-card" },
+              [
+                _c(
+                  "md-card-media",
+                  [
+                    _c("md-ripple", [
+                      _c("img", {
+                        staticClass: "mini-card-img",
+                        attrs: { src: image, alt: "blabla" }
+                      })
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "md-card-actions",
+                  [
+                    _c(
+                      "md-button",
+                      { staticClass: "md-icon-button" },
+                      [_c("md-icon", [_vm._v("favorite")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "md-button",
+                      { staticClass: "md-icon-button" },
+                      [_c("md-icon", [_vm._v("bookmark")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "md-button",
+                      { staticClass: "md-icon-button" },
+                      [_c("md-icon", [_vm._v("share")])],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          })
         ],
-        1
-      )
+        2
+      ),
+      _vm._v(" "),
+      _c("snackbar", { ref: "snackbar" }),
+      _vm._v(" "),
+      _c("loader", { ref: "loader" })
     ],
     1
   )

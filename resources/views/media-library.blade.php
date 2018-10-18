@@ -15,10 +15,10 @@
     <title>Media Library</title>
 </head>
 <body>
-    Media Library:
+    <br>
     <div id="app" class="media-app">
         <media-component-upload></media-component-upload>
-        <media-component-list></media-component-list>
+        <media-component-list @refresh="getImages"></media-component-list>
     </div>
 
     <style>

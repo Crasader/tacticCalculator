@@ -4,10 +4,31 @@
             <div class="modal-header">
                 <h3>Media List</h3>
             </div>
-            <md-field>
+            <md-card class="mini-card" v-for="image in images">
+                <md-card-media>
+                    <md-ripple>
+                        <img :src="image" class="mini-card-img" alt="blabla">
+                    </md-ripple>
+                </md-card-media>
 
-            </md-field>
+                <md-card-actions>
+                    <md-button class="md-icon-button">
+                        <md-icon>favorite</md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button">
+                        <md-icon>bookmark</md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button">
+                        <md-icon>share</md-icon>
+                    </md-button>
+                </md-card-actions>
+            </md-card>
         </md-card>
+
+        <snackbar ref="snackbar"></snackbar>
+        <loader ref="loader"></loader>
     </div>
 </template>
 
@@ -16,28 +37,46 @@
     import 'vue-material/dist/vue-material.min.css'
     Vue.use(VueMaterial)
 
+    import Snackbar from '../Snackbar'
+    import Loader from '../Loader'
+
     export default {
+        components: { Snackbar, Loader },
         data: () => ({
-            single: null
+            images: []
         }),
         methods: {
-            onUpload() {
-                // upload file
-                console.log(this.single);
+            getImages() {
+                this.$refs.loader.show();
+                axios.get('/api/images')
+                .then(response => {
+                    console.log(response.data);
+                    this.images = response.data;
+                    this.$refs.loader.hide();
+                })
+                .catch((error) => {
+                    let message = "Hiba: " + error.message;
+                    this.$refs.snackbar.openSnackbar(message, "danger", 6000);
+                    this.$refs.loader.hide();
+                });
             }
         },
         mounted () {
+            this.getImages();
         }
     }
 </script>
 
 <style>
-.basic-table {
-    margin: auto;
-    margin-left: 30px;
-    vertical-align: top;
+.mini-card {
+    height: 260px;
+    width: 45%;
+    margin: 12px;
+    display: inline-block;
 }
-.basic-table-buttons {
-    text-align: right;
+.md-card-media img {
+    height: auto;
+    max-height: 200px;
+    width: auto;
 }
 </style>

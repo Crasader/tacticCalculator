@@ -26,6 +26,7 @@ Route::resource('basic-data', 'Api\BasicDataController', [
 ]);
 
 Route::post('image-upload', 'Api\ImageUploadController@store');
+Route::get('images', 'Api\ImageUploadController@index');
 
 Route::resource('tactic-data', 'Api\TacticDataController', [
     'only' => ['index'],

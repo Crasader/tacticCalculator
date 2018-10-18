@@ -6,6 +6,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\ImageUploadRepository;
 use App\Transformers\ResourceTransformerInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImageUploadController extends BaseResourceController
 {
@@ -17,13 +18,34 @@ class ImageUploadController extends BaseResourceController
         parent::__construct($request);
     }
 
+    public function index(Request $request)
+    {
+        return response()->json(
+                $this->replaceText(Storage::allFiles('public/images'))
+            );
+    }
+
+    private function replaceText($exists)
+    {
+        $images = [];
+        foreach ($exists as $exist) {
+            $images[] = str_replace('public', 'storage', $exist);
+        }
+        return $images;
+    }
+
     public function store(Request $request)
     {
         $input = $request->input();
-        $image = str_replace('data:image/png;base64,', '', $input['data']['attributes']['image']);
+        $extension = explode(';', $input['data']['attributes']['image']);
+        $extension = explode('/', $extension[0]);
+        $extension = $extension[1];
+        $image = str_replace('data:image/' . $extension . ';base64,', '', $input['data']['attributes']['image']);
         $image = str_replace(' ', '+', $image);
-        $imageName = str_random(10).'.'.'png';
-        \File::put(storage_path(). '/app/public/' . $imageName, base64_decode($image));
+
+        $imageName = str_random(10).'.'.$extension;
+        \File::put(storage_path(). '/app/public/images/' . $imageName, base64_decode($image));
+
         return response()->json([
             'status' => 200,
             'value' => 'Sikeres feltöltés!'
