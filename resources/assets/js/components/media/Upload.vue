@@ -55,6 +55,9 @@
                 }
             },
             onUpload() {
+                console.log(this.vue);
+                console.loog(this.$root);
+                this.app.methods.getImages();
                 // upload file
                 this.$refs.loader.show();
                 console.log(this.selectedFile);
@@ -69,7 +72,6 @@
                 .then((response) => {
                     this.$refs.loader.hide();
                     this.$refs.snackbar.openSnackbar(response.data.value, "success");
-                    this.$emit('refresh');
                 })
                 .catch((error) => {
                     this.$refs.loader.hide();

@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h3>Media List</h3>
             </div>
-            <md-card class="mini-card" v-for="image in images">
+            <md-card class="mini-card" v-for="image in images" v-bind:key="image">
                 <md-card-media>
                     <md-ripple>
                         <img :src="image" class="mini-card-img" alt="blabla">
@@ -47,6 +47,7 @@
         }),
         methods: {
             getImages() {
+                console.log("LISTGTIMG")
                 this.$refs.loader.show();
                 axios.get('/api/images')
                 .then(response => {
