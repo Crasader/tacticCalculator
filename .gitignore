@@ -14,3 +14,4 @@ yarn-error.log
 .env
 docker-compose.override.yml
 PHP-XDEBUG-IP
+/public/js
